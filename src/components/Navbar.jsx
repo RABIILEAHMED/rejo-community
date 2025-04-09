@@ -1,49 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { FaBell } from 'react-icons/fa';
+import { FaBell, FaDiscord, FaTelegramPlane, FaYoutube } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [newMessage, setNewMessage] = useState(false); // State to handle new message notification
-  const [showModal, setShowModal] = useState(false); // State to handle modal visibility
-  const [messageClicked, setMessageClicked] = useState(false); // State to handle if message is clicked
-  const [scrolling, setScrolling] = useState(false); // State to track scrolling
+  const [newMessage, setNewMessage] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [messageClicked, setMessageClicked] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
 
     const timer = setTimeout(() => {
       setNewMessage(true);
-    }, 5000); // Simulate a new message
+    }, 5000);
 
-    return () => clearTimeout(timer); // Clear timer when component unmounts
+    return () => clearTimeout(timer);
   }, [darkMode]);
 
-  // Scroll event listener
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolling(true); // Mark navbar as fixed after 50px scroll
-      } else {
-        setScrolling(false);
-      }
+      setScrolling(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleMouseEnter = () => {
-    // Do nothing for now, prevent message from opening automatically
-  };
-
-  const handleMouseLeave = () => {
-    // Do nothing for now, prevent message from closing automatically
-  };
-
   const handleClick = () => {
     setMessageClicked(true);
-    setShowModal(true); // Only show the modal when clicked
+    setShowModal(true);
   };
 
   const handleCloseModal = () => {
@@ -62,23 +49,31 @@ const Navbar = () => {
       </h1>
 
       <ul className="hidden md:flex space-x-6 text-gray-700 dark:text-gray-300 font-medium">
-  <li><a href="#home" className="hover:text-yellow-500">Home</a></li>
-  <li><a href="#courses" className="hover:text-yellow-500">Courses</a></li>
-  <li><a href="#mentorship" className="hover:text-yellow-500">Mentorship</a></li>
-  <li><a href="#pdfbooks" className="hover:text-yellow-500">PDF Books</a></li>
-</ul>
+        <li><a href="#home" className="hover:text-yellow-500">Home</a></li>
+        <li><a href="#courses" className="hover:text-yellow-500">Courses</a></li>
+        <li><a href="#mentorship" className="hover:text-yellow-500">Mentorship</a></li>
+        <li><a href="#pdfbooks" className="hover:text-yellow-500">PDF Books</a></li>
+      </ul>
 
+      <div className="flex items-center space-x-4">
+        {/* Desktop Social Icons */}
+        <div className="hidden md:flex space-x-4 text-xl text-gray-700 dark:text-gray-300">
+          <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+            <FaDiscord />
+          </a>
+          <a href="https://t.me/rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+            <FaTelegramPlane />
+          </a>
+          <a href="https://www.youtube.com/@rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+            <FaYoutube />
+          </a>
+        </div>
 
-      <div className="flex items-center space-x-3">
         <button onClick={() => setDarkMode(!darkMode)} className="text-xl dark:text-white">
           {darkMode ? '☀️' : '🌙'}
         </button>
 
-        <div
-          className="relative"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
+        <div className="relative">
           <button className="text-xl text-gray-800 dark:text-white" onClick={handleClick}>
             <FaBell />
           </button>
@@ -91,20 +86,32 @@ const Navbar = () => {
 
         <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
           <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-800 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
       </div>
 
       {isOpen && (
-        <div className="absolute top-16 right-0 bg-white dark:bg-gray-800 shadow-lg w-full px-6 py-4 md:hidden">
+        <div className="absolute top-16 right-0 bg-white dark:bg-gray-800 shadow-lg w-full px-6 py-4 md:hidden z-40">
           <ul className="space-y-4 text-gray-700 dark:text-gray-200 font-medium">
-  <li><a href="#home" className="hover:text-yellow-500">Home</a></li>
-  <li><a href="#courses" className="hover:text-yellow-500">Courses</a></li>
-  <li><a href="#mentorship" className="hover:text-yellow-500">Mentorship</a></li>
-  <li><a href="#pdfbooks" className="hover:text-yellow-500">PDF Books</a></li>
-</ul>
+            <li><a href="#home" className="hover:text-yellow-500">Home</a></li>
+            <li><a href="#courses" className="hover:text-yellow-500">Courses</a></li>
+            <li><a href="#mentorship" className="hover:text-yellow-500">Mentorship</a></li>
+            <li><a href="#pdfbooks" className="hover:text-yellow-500">PDF Books</a></li>
+          </ul>
 
+          {/* Mobile Social Icons */}
+          <div className="flex justify-center mt-4 space-x-6 text-xl text-gray-700 dark:text-gray-300">
+            <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+              <FaDiscord />
+            </a>
+            <a href="https://t.me/rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+              <FaTelegramPlane />
+            </a>
+            <a href="https://www.youtube.com/@rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+              <FaYoutube />
+            </a>
+          </div>
         </div>
       )}
 
