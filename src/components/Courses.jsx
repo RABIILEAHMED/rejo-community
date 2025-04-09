@@ -53,7 +53,7 @@ const Courses = () => {
         className="relative text-3xl md:text-4xl font-bold text-center text-gray-800 dark:text-white mb-12 z-10"
       >
         <span className="relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] dark:drop-shadow-[0_0_12px_rgba(255,255,0,0.4)]">
-          Available Courses
+         Our Premium Courses
         </span>
 
         {/* Animated Underline */}
@@ -100,13 +100,23 @@ const Courses = () => {
                 Price: <span className={course.price === 'Free' ? 'text-green-500' : 'text-yellow-500'}>{course.price}</span>
               </p>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => openModal(course)}
-                className="bg-primary hover:bg-yellow-600 text-white font-medium px-3 py-1.5 rounded-md text-sm"
-              >
-                View Details
-              </motion.button>
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={() => openModal(course)}
+  className="bg-primary hover:bg-yellow-600 text-white font-medium px-3 py-1.5 rounded-md text-sm mr-4" // margin-right to space out the buttons
+>
+  View Details
+</motion.button>
+
+<motion.button
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={() => window.location.href = 'http://localhost:5173/register'}
+  className="bg-green-500 hover:bg-green-600 text-white font-medium px-3 py-1.5 rounded-md text-sm"
+>
+  Enroll
+</motion.button>
+
             </div>
           </motion.div>
         ))}
