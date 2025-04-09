@@ -1,0 +1,63 @@
+import React, { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+
+const Register = ({ onClose }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("Registered successfully!");
+      onClose();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleRegister}
+      className="bg-white dark:bg-[#1f1f1f] p-6 rounded-2xl shadow-xl max-w-md w-full"
+    >
+      <h2 className="text-2xl font-bold mb-6 text-center text-yellow-500">
+        Register to Enroll
+      </h2>
+
+      <input
+        type="email"
+        placeholder="Email"
+        className="w-full p-3 mb-4 border border-gray-300 rounded-md dark:bg-dark dark:text-white focus:ring-2 focus:ring-yellow-400"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        className="w-full p-3 mb-4 border border-gray-300 rounded-md dark:bg-dark dark:text-white focus:ring-2 focus:ring-yellow-400"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <button
+        type="submit"
+        className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-md transition shadow-md"
+      >
+        Create Account
+      </button>
+
+      <button
+        type="button"
+        onClick={onClose}
+        className="w-full mt-4 text-sm text-gray-600 dark:text-gray-300 underline hover:text-yellow-500"
+      >
+        Cancel
+      </button>
+    </form>
+  );
+};
+
+export default Register;

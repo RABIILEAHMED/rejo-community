@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCode, FaPython, FaPalette, FaMoneyBillWave } from 'react-icons/fa'; // Added FaMoneyBillWave import
+import { FaCode, FaPython, FaPalette, FaMoneyBillWave } from 'react-icons/fa';
+import Register from '../pages/Register';
 
 const courses = [
   {
@@ -10,14 +11,32 @@ const courses = [
     icon: <FaCode className="text-white text-lg" />,
     iconBg: 'bg-blue-500',
     price: '$30',
+    curriculum: [
+      'Introduction to Web Development',
+      'HTML & CSS Basics',
+      'JavaScript Essentials',
+      'Introduction to React',
+      'Node.js and Backend Basics',
+      'Building Full Stack Applications',
+      'Deployment and Hosting'
+    ]
   },
   {
     title: 'Professional Forex Trading',
     description: 'Barashada suuqa Forex iyo sida loo sameeyo ganacsi guuleed oo waara.',
     image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    icon: <FaMoneyBillWave className="text-white text-lg" />, // Now this should work
+    icon: <FaMoneyBillWave className="text-white text-lg" />,
     iconBg: 'bg-yellow-500',
     price: '$100',
+    curriculum: [
+      'Introduction to Forex Trading',
+      'Technical Analysis Fundamentals',
+      'Risk Management in Trading',
+      'Using Indicators for Trading',
+      'Forex Trading Strategies',
+      'Understanding Market Psychology',
+      'Advanced Trading Techniques'
+    ]
   },
   {
     title: 'UI/UX Design Basics',
@@ -26,12 +45,22 @@ const courses = [
     icon: <FaPalette className="text-white text-lg" />,
     iconBg: 'bg-purple-500',
     price: '$30',
+    curriculum: [
+      'Introduction to UI/UX Design',
+      'Wireframing and Prototyping',
+      'User-Centered Design Principles',
+      'Design Thinking Process',
+      'Visual Design Basics',
+      'Usability Testing and Feedback',
+      'Final Project: Designing a UI/UX'
+    ]
   },
 ];
 
 const Courses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
   const openModal = (course) => {
     setSelectedCourse(course);
@@ -43,9 +72,12 @@ const Courses = () => {
     setSelectedCourse(null);
   };
 
+  const openRegisterModal = () => setIsRegisterModalOpen(true);
+  const closeRegisterModal = () => setIsRegisterModalOpen(false);
+
   return (
     <section id="courses" className="relative py-20 px-4 bg-light dark:bg-dark transition-colors duration-500 overflow-hidden">
-      <motion.h2 
+      <motion.h2
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -53,10 +85,8 @@ const Courses = () => {
         className="relative text-3xl md:text-4xl font-bold text-center text-gray-800 dark:text-white mb-12 z-10"
       >
         <span className="relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] dark:drop-shadow-[0_0_12px_rgba(255,255,0,0.4)]">
-         Our Premium Courses
+          Our Premium Courses
         </span>
-
-        {/* Animated Underline */}
         <motion.span
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
@@ -100,28 +130,28 @@ const Courses = () => {
                 Price: <span className={course.price === 'Free' ? 'text-green-500' : 'text-yellow-500'}>{course.price}</span>
               </p>
               <motion.button
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  onClick={() => openModal(course)}
-  className="bg-primary hover:bg-yellow-600 text-white font-medium px-3 py-1.5 rounded-md text-sm mr-4" // margin-right to space out the buttons
->
-  View Details
-</motion.button>
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => openModal(course)}
+                className="bg-primary hover:bg-yellow-600 text-white font-medium px-3 py-1.5 rounded-md text-sm mr-4"
+              >
+                View Details
+              </motion.button>
 
-<motion.button
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  onClick={() => window.location.href = 'http://localhost:5173/register'}
-  className="bg-green-500 hover:bg-green-600 text-white font-medium px-3 py-1.5 rounded-md text-sm"
->
-  Enroll
-</motion.button>
-
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={openRegisterModal}
+                className="bg-green-500 hover:bg-green-600 text-white font-medium px-3 py-1.5 rounded-md text-sm"
+              >
+                Enroll
+              </motion.button>
             </div>
           </motion.div>
         ))}
       </div>
 
+      {/* Course Details Modal */}
       <AnimatePresence>
         {isModalOpen && selectedCourse && (
           <motion.div
@@ -137,19 +167,6 @@ const Courses = () => {
               transition={{ type: "spring", stiffness: 100 }}
               className="bg-white dark:bg-[#2a2a2a] rounded-xl p-6 max-w-2xl w-full shadow-2xl"
             >
-              <div className="relative">
-                <motion.img
-                  src={selectedCourse.image}
-                  alt={selectedCourse.title}
-                  className="w-full h-64 object-cover rounded-lg mb-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                />
-                <div className={`absolute top-4 right-4 w-10 h-10 rounded-full ${selectedCourse.iconBg} flex items-center justify-center shadow-lg`}>
-                  {selectedCourse.icon}
-                </div>
-              </div>
               <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
                 {selectedCourse.title}
               </h3>
@@ -159,6 +176,18 @@ const Courses = () => {
               <p className="text-gray-800 dark:text-white font-semibold mb-6">
                 Price: <span className={selectedCourse.price === 'Free' ? 'text-green-500' : 'text-yellow-500'}>{selectedCourse.price}</span>
               </p>
+
+              <div className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                <h4>Course Curriculum:</h4>
+                <ul className="list-decimal pl-5 space-y-2">
+                  {selectedCourse.curriculum.map((section, index) => (
+                    <li key={index} className="text-gray-800 dark:text-white">
+                      {section}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <div className="flex justify-end">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -169,6 +198,34 @@ const Courses = () => {
                   Close
                 </motion.button>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Register Modal */}
+      <AnimatePresence>
+        {isRegisterModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50 p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 100 }}
+              className="bg-white dark:bg-[#2a2a2a] rounded-xl p-6 w-full max-w-lg shadow-2xl relative"
+            >
+              <button
+                onClick={closeRegisterModal}
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white text-xl"
+              >
+                ✕
+              </button>
+              <Register />
             </motion.div>
           </motion.div>
         )}

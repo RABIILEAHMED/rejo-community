@@ -1,53 +1,30 @@
-import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import React from "react";
 
-const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      alert("Registered successfully!");
-    } catch (err) {
-      alert(err.message);
-    }
-  };
-
+const Register = ({ onClose }) => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <form
-        onSubmit={handleRegister}
-        className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full"
+    <div className="bg-white dark:bg-[#1f1f1f] p-8 rounded-2xl shadow-2xl max-w-lg w-full mx-auto text-center">
+      <h2 className="text-3xl font-bold text-yellow-500 mb-4">
+        Haddaad Diyaar u Tahay 
+      </h2>
+      <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
+        Course-kani waa mid kor u qaadi doona Xirfadaada iyo aragtida aad ka haysato suuqyadan . Wixii faahfaahin ama isdiiwaan
+        gelin ah, nagala soo xiriir Telegram:
+      </p>
+      <a
+        href="https://t.me/Rabiile_ahmed"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-md text-lg transition"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center text-indigo-600">
-          Register to Enroll
-        </h2>
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-3 mb-4 border border-gray-300 rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full p-3 mb-4 border border-gray-300 rounded"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button
-          type="submit"
-          className="w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700 transition"
-        >
-          Create Account
-        </button>
-      </form>
+        👉 Fariin noogu reeb Telegram
+      </a>
+
+      <button
+        onClick={onClose}
+        className="block w-full mt-6 text-sm text-gray-500 dark:text-gray-400 hover:text-yellow-500"
+      >
+        Cancel
+      </button>
     </div>
   );
 };
