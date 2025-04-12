@@ -16,6 +16,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UploadVideo from "./pages/UploadVideo";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import StoriesSection from "./components/DailySignalsSection.jsx";
 
 // 👇 Home page layout oo sections-ka wada
 const Home = () => (
@@ -29,6 +30,7 @@ const Home = () => (
     <Hero />
     <Courses />
     <Mentorship />
+    <StoriesSection/>
     <PDFBooks />
     <Footer />
   </>
