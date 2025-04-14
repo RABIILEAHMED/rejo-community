@@ -57,7 +57,7 @@ const Mentorship = () => {
           {/* CTA Button */}
           <div className="flex justify-center items-center gap-4 flex-wrap">
             <a
-              href="https://t.me/rejocommunity"
+              href="https://t.me/rejocomunnity"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition duration-300 inline-block"
@@ -66,11 +66,12 @@ const Mentorship = () => {
             </a>
 
             <button
-              onClick={() => setSelectedVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')}
-              className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition duration-300"
-            >
-              Daawo Video-ga Hordhaca
-            </button>
+               onClick={() => setSelectedVideo('https://www.youtube.com/embed/vYeTSsQHYcc?start=7')}
+               className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition duration-300"
+                >
+          Daawo Video-ga Hordhaca
+</button>
+
           </div>
         </div>
 
@@ -150,7 +151,7 @@ const Mentorship = () => {
           <h3 className="text-2xl font-bold mb-4">"I became a skilled trader in just 3 months!"</h3>
           <p className="mb-4">- Ahmed, A professional Forex trader who turned his passion into a full-time career with our mentorship program.</p>
           <a
-            href="https://t.me/rejocommunity"
+            href="https://t.me/rejocomunnity"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white text-gray-800 font-semibold px-8 py-3 rounded-xl shadow-md hover:bg-yellow-600 transition duration-300 inline-block"
@@ -164,7 +165,7 @@ const Mentorship = () => {
           <h3 className="text-2xl font-bold mb-4">"Live trading and signals changed the way I see the market."</h3>
           <p className="mb-4">- Fatima, After joining the mentorship, I gained confidence in my trades and significantly improved my profitability.</p>
           <a
-            href="https://t.me/rejocommunity"
+            href="https://t.me/rejocomunnity"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white text-gray-800 font-semibold px-8 py-3 rounded-xl shadow-md hover:bg-green-600 transition duration-300 inline-block"
@@ -178,7 +179,7 @@ const Mentorship = () => {
           <h3 className="text-2xl font-bold mb-4">"The mentorship was eye-opening, I now trade with a system."</h3>
           <p className="mb-4">- Yusuf, The mentorship program helped me create a trading system that consistently brings profits.</p>
           <a
-            href="https://t.me/rejocommunity"
+            href="https://t.me/rejocomunnity"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white text-gray-800 font-semibold px-8 py-3 rounded-xl shadow-md hover:bg-purple-600 transition duration-300 inline-block"

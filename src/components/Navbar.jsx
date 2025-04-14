@@ -12,6 +12,7 @@ const Navbar = () => {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
 
+    // Show the "new message" after 5 seconds when the page is loaded or refreshed
     const timer = setTimeout(() => {
       setNewMessage(true);
     }, 5000);
@@ -26,6 +27,11 @@ const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    // Show the modal when the page is first loaded or refreshed
+    setShowModal(true);
   }, []);
 
   const handleClick = () => {
@@ -61,7 +67,7 @@ const Navbar = () => {
           <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
             <FaDiscord />
           </a>
-          <a href="https://t.me/rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+          <a href="https://t.me/rejocomunnity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
             <FaTelegramPlane />
           </a>
           <a href="https://www.youtube.com/@rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
@@ -105,7 +111,7 @@ const Navbar = () => {
             <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
               <FaDiscord />
             </a>
-            <a href="https://t.me/rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+            <a href="https://t.me/rejocomunnity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
               <FaTelegramPlane />
             </a>
             <a href="https://www.youtube.com/@rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
@@ -118,7 +124,7 @@ const Navbar = () => {
       {showModal && (
         <div className="fixed top-1/4 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 shadow-lg p-6 rounded-lg w-80 z-50">
           <h2 className="text-xl font-semibold text-gray-800 dark:text-white">New Message</h2>
-          <p className="text-gray-700 dark:text-gray-300 mt-2">caawa waxa jira meeting ku saabsan alipay! Check it out.</p>
+          <p className="text-gray-700 dark:text-gray-300 mt-2">"The platform is still under construction and implementation. ⚠️"</p>
           <button
             onClick={handleCloseModal}
             className="mt-4 bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-400"

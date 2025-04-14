@@ -27,15 +27,16 @@ const courses = [
     image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     icon: <FaMoneyBillWave className="text-white text-lg" />,
     iconBg: 'bg-yellow-500',
-    price: '$100',
+    price: '$0',
     curriculum: [
-      'Introduction to Forex Trading',
-      'Technical Analysis Fundamentals',
-      'Risk Management in Trading',
-      'Using Indicators for Trading',
-      'Forex Trading Strategies',
-      'Understanding Market Psychology',
-      'Advanced Trading Techniques'
+      'Market Mapping Key concepts', 
+      'Liquidity Pools key concepts',
+      'Timeframe Usage 4H -15M',
+      'Institutional Order flow',
+      'Assian Highs & Lows strategy', 
+      'London Kill Zone Strategy',
+      'Acummulaiton , Manipulation, Distrabution', 
+      'Risk Management in Trading',   
     ]
   },
   {
@@ -44,7 +45,7 @@ const courses = [
     image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     icon: <FaPalette className="text-white text-lg" />,
     iconBg: 'bg-purple-500',
-    price: '$30',
+    price: '$49.99',
     curriculum: [
       'Introduction to UI/UX Design',
       'Wireframing and Prototyping',

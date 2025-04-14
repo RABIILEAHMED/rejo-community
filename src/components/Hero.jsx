@@ -42,7 +42,7 @@ const Hero = () => {
           Horumari xirfadahaaga sida Web Development, AI, iyo Forex trading si aad u gaarto xirfad sare.
         </motion.p>
         <motion.button
-  onClick={() => window.open('https://t.me/rejocommunity', '_blank')}
+  onClick={() => window.open('https://t.me/rejocomunnity', '_blank')}
   className="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg"
   initial={{ opacity: 0, scale: 0.9 }}
   animate={{ opacity: 1, scale: 1 }}
