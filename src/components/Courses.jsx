@@ -1,67 +1,47 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCode, FaPython, FaPalette, FaMoneyBillWave } from 'react-icons/fa';
+import { FaCode, FaPalette, FaMoneyBillWave } from 'react-icons/fa';
 import Register from '../pages/Register';
 
 const courses = [
   {
     title: 'Full Stack Web Development',
-    description: 'Bar HTML, CSS, JavaScript, React & Node.js adigoo af-Soomaali ku baranaya.',
+    description: 'Baro HTML, CSS, JavaScript, React & Node.js adigoo af-Soomaali ku baranaya.',
     image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    icon: <FaCode className="text-white text-lg" />,
-    iconBg: 'bg-blue-500',
+    icon: <FaCode className="text-white text-lg" />, iconBg: 'bg-blue-500',
     price: '$30',
-    curriculum: [
-      'Introduction to Web Development',
-      'HTML & CSS Basics',
-      'JavaScript Essentials',
-      'Introduction to React',
-      'Node.js and Backend Basics',
-      'Building Full Stack Applications',
-      'Deployment and Hosting'
-    ]
+    curriculum: [],
+    comingSoon: true
   },
   {
     title: 'Professional Forex Trading',
     description: 'Barashada suuqa Forex iyo sida loo sameeyo ganacsi guuleed oo waara.',
     image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    icon: <FaMoneyBillWave className="text-white text-lg" />,
-    iconBg: 'bg-yellow-500',
+    icon: <FaMoneyBillWave className="text-white text-lg" />, iconBg: 'bg-yellow-500',
     price: '$0',
     curriculum: [
-      'Market Mapping Key concepts', 
-      'Liquidity Pools key concepts',
-      'Timeframe Usage 4H -15M',
-      'Institutional Order flow',
-      'Assian Highs & Lows strategy', 
-      'London Kill Zone Strategy',
-      'Acummulaiton , Manipulation, Distrabution', 
-      'Risk Management in Trading',   
-    ]
+      'Market Mapping Key concepts', 'Liquidity Pools key concepts', 'Timeframe Usage 4H -15M',
+      'Institutional Order flow', 'Assian Highs & Lows strategy', 'London Kill Zone Strategy',
+      'Acummulaiton , Manipulation, Distrabution', 'Risk Management in Trading'
+    ],
+    comingSoon: false
   },
   {
     title: 'UI/UX Design Basics',
-    description: 'Ka baro sida loo sameeyo design interface wanaagsan oo user-friendly ah.',
+    description: 'Ku baro sida loo sameeyo design interface wanaagsan oo user-friendly ah.',
     image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    icon: <FaPalette className="text-white text-lg" />,
-    iconBg: 'bg-purple-500',
+    icon: <FaPalette className="text-white text-lg" />, iconBg: 'bg-purple-500',
     price: '$49.99',
-    curriculum: [
-      'Introduction to UI/UX Design',
-      'Wireframing and Prototyping',
-      'User-Centered Design Principles',
-      'Design Thinking Process',
-      'Visual Design Basics',
-      'Usability Testing and Feedback',
-      'Final Project: Designing a UI/UX'
-    ]
-  },
+    curriculum: [],
+    comingSoon: true
+  }
 ];
 
 const Courses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
   const openModal = (course) => {
     setSelectedCourse(course);
@@ -71,9 +51,19 @@ const Courses = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedCourse(null);
+    setModalMessage('');
   };
 
-  const openRegisterModal = () => setIsRegisterModalOpen(true);
+  const openRegisterModal = (course) => {
+    if (course.comingSoon) {
+      setModalMessage('Course kan wali waxa ku socda shaqo');
+      setSelectedCourse(course);
+      setIsModalOpen(true);
+    } else {
+      setIsRegisterModalOpen(true);
+    }
+  };
+
   const closeRegisterModal = () => setIsRegisterModalOpen(false);
 
   return (
@@ -142,7 +132,7 @@ const Courses = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={openRegisterModal}
+                onClick={() => openRegisterModal(course)}
                 className="bg-green-500 hover:bg-green-600 text-white font-medium px-3 py-1.5 rounded-md text-sm"
               >
                 Enroll
@@ -165,31 +155,45 @@ const Courses = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 100 }}
+              transition={{ type: 'spring', stiffness: 100 }}
               className="bg-white dark:bg-[#2a2a2a] rounded-xl p-6 max-w-2xl w-full shadow-2xl"
             >
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-                {selectedCourse.title}
-              </h3>
-              <p className="text-gray-600 dark:text-dark2 mb-2">
-                {selectedCourse.description}
-              </p>
-              <p className="text-gray-800 dark:text-white font-semibold mb-6">
-                Price: <span className={selectedCourse.price === 'Free' ? 'text-green-500' : 'text-yellow-500'}>{selectedCourse.price}</span>
-              </p>
+              {modalMessage ? (
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                    {modalMessage}
+                  </h3>
+                  <button
+                    disabled
+                    className="bg-gray-400 text-white font-semibold py-2 px-4 rounded cursor-not-allowed"
+                  >
+                    Telegram
+                  </button>
+                </div>
+              ) : (<>
+                  <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                    {selectedCourse.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-dark2 mb-2">
+                    {selectedCourse.description}
+                  </p>
+                  <p className="text-gray-800 dark:text-white font-semibold mb-6">
+                    Price: <span className={selectedCourse.price === 'Free' ? 'text-green-500' : 'text-yellow-500'}>{selectedCourse.price}</span>
+                  </p>
 
-              <div className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-                <h4>Course Curriculum:</h4>
-                <ul className="list-decimal pl-5 space-y-2">
-                  {selectedCourse.curriculum.map((section, index) => (
-                    <li key={index} className="text-gray-800 dark:text-white">
-                      {section}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="flex justify-end">
+                  <div className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                    <h4>Course Curriculum:</h4>
+                    <ul className="list-decimal pl-5 space-y-2">
+                      {selectedCourse.curriculum.map((section, index) => (
+                        <li key={index} className="text-gray-800 dark:text-white">
+                          {section}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
+              <div className="flex justify-end mt-4">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -217,7 +221,7 @@ const Courses = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 100 }}
+              transition={{ type: 'spring', stiffness: 100 }}
               className="bg-white dark:bg-[#2a2a2a] rounded-xl p-6 w-full max-w-lg shadow-2xl relative"
             >
               <button
@@ -226,7 +230,7 @@ const Courses = () => {
               >
                 ✕
               </button>
-              <Register />
+              <Register onClose={closeRegisterModal} />
             </motion.div>
           </motion.div>
         )}

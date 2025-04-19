@@ -67,7 +67,7 @@ const Navbar = () => {
           <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
             <FaDiscord />
           </a>
-          <a href="https://t.me/rejocomunnity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+          <a href="https://t.me/rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
             <FaTelegramPlane />
           </a>
           <a href="https://www.youtube.com/@rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
@@ -111,7 +111,7 @@ const Navbar = () => {
             <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
               <FaDiscord />
             </a>
-            <a href="https://t.me/rejocomunnity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
+            <a href="https://t.me/rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
               <FaTelegramPlane />
             </a>
             <a href="https://www.youtube.com/@rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">

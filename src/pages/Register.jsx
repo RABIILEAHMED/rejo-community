@@ -11,12 +11,12 @@ const Register = ({ onClose }) => {
         gelin ah, nagala soo xiriir Telegram:
       </p>
       <a
-        href="https://t.me/Rabiile_ahmed"
+        href="https://t.me/rejocommunity"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-md text-lg transition"
       >
-        👉 Fariin noogu reeb Telegram
+        Join Course on Telegram
       </a>
 
       <button
