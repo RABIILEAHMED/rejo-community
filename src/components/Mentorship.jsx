@@ -78,7 +78,7 @@ const Mentorship = () => {
             </a>
 
             <button
-               onClick={() => setSelectedVideo('https://www.youtube.com/embed/vYeTSsQHYcc?start=7')}
+               onClick={() => setSelectedVideo('https://www.youtube.com/embed/R-VjpFUlRME')}
                className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition duration-300"
                 >
           Daawo Video-ga Hordhaca
