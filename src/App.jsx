@@ -17,6 +17,7 @@ import Register from "./pages/Register";
 import UploadVideo from "./pages/UploadVideo";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import StoriesSection from "./components/DailySignalsSection.jsx";
+// import SecurePDFBooks from "./components/SecurePDFBooks.jsx";
 
 // 👇 Home page layout oo sections-ka wada
 const Home = () => (
