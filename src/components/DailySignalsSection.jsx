@@ -1,44 +1,44 @@
-import React, { useState } from 'react';
-import { CheckCircle, XCircle, Clock } from 'lucide-react';
+import React, { useState } from "react";
+import { CheckCircle, XCircle, Clock } from "lucide-react";
 
 const signals = [
   {
     id: 1,
-    pair: 'EUR/USD',
-    type: 'Buy',
-    entry: '1.0800',
-    sl: '1.0750',
-    tp: '1.0900',
-    time: '12-Apr-2025 10:30 AM',
-    result: 'tp', // tp | sl | active
+    pair: "EUR/USD",
+    type: "Buy",
+    entry: "1.0800",
+    sl: "1.0750",
+    tp: "1.0900",
+    time: "12-Apr-2025 10:30 AM",
+    result: "tp",
   },
   {
     id: 2,
-    pair: 'GBP/USD',
-    type: 'Sell',
-    entry: '1.2600',
-    sl: '1.2650',
-    tp: '1.2500',
-    time: '12-Apr-2025 08:00 AM',
-    result: 'sl',
+    pair: "GBP/USD",
+    type: "Sell",
+    entry: "1.2600",
+    sl: "1.2650",
+    tp: "1.2500",
+    time: "12-Apr-2025 08:00 AM",
+    result: "sl",
   },
   {
     id: 3,
-    pair: 'XAU/USD',
-    type: 'Buy',
-    entry: '3215.91',
-    sl: '3210.22',
-    tp: '3233.39',
-    time: '15-Apr-2025 10:54 AM',
-    result: 'active',
+    pair: "XAU/USD",
+    type: "Buy",
+    entry: "3215.91",
+    sl: "3210.22",
+    tp: "3233.39",
+    time: "15-Apr-2025 10:54 AM",
+    result: "active",
   },
 ];
 
 const resultIcon = (result) => {
   switch (result) {
-    case 'tp':
+    case "tp":
       return <CheckCircle className="text-green-400 w-5 h-5 inline-block mr-1" title="Hit TP" />;
-    case 'sl':
+    case "sl":
       return <XCircle className="text-red-400 w-5 h-5 inline-block mr-1" title="Hit SL" />;
     default:
       return <Clock className="text-yellow-300 w-5 h-5 inline-block mr-1" title="Still Active" />;
@@ -47,7 +47,7 @@ const resultIcon = (result) => {
 
 const DailySignalsSection = () => {
   const [selectedSignal, setSelectedSignal] = useState(null);
-  const [showResults, setShowResults] = useState(true); // toggle state
+  const [showResults, setShowResults] = useState(true);
 
   return (
     <div className="bg-gray-950 py-10 px-4 text-white">
@@ -57,7 +57,7 @@ const DailySignalsSection = () => {
           onClick={() => setShowResults(!showResults)}
           className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded-md font-semibold text-sm text-black"
         >
-          {showResults ? 'Disable Results' : 'Enable Results'}
+          {showResults ? "Disable Results" : "Enable Results"}
         </button>
       </div>
 
@@ -81,7 +81,6 @@ const DailySignalsSection = () => {
         ))}
       </div>
 
-      {/* Modal */}
       {selectedSignal && (
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
           <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md relative">
@@ -101,11 +100,11 @@ const DailySignalsSection = () => {
               <div className="mt-4 text-center">
                 {resultIcon(selectedSignal.result)}
                 <span className="ml-2">
-                  {selectedSignal.result === 'tp'
-                    ? 'Take Profit Reached ✅'
-                    : selectedSignal.result === 'sl'
-                    ? 'Stop Loss Hit ❌'
-                    : 'Trade Still Running ⏳'}
+                  {selectedSignal.result === "tp"
+                    ? "Take Profit Reached ✅"
+                    : selectedSignal.result === "sl"
+                    ? "Stop Loss Hit ❌"
+                    : "Trade Still Running ⏳"}
                 </span>
               </div>
             )}

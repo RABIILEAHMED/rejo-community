@@ -1,25 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { AuthProvider } from "./context/AuthContext.jsx";
 
-// Components (landing sections)
+// Components (Landing Page Sections)
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Courses from "./components/Courses";
 import Mentorship from "./components/Mentorship";
 import PDFBooks from "./components/PDFBooks";
 import Footer from "./components/Footer";
+import StoriesSection from "./components/DailySignalsSection";
 
-// Pages
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import UploadVideo from "./pages/UploadVideo";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import StoriesSection from "./components/DailySignalsSection.jsx";
-// import SecurePDFBooks from "./components/SecurePDFBooks.jsx";
-
-// 👇 Home page layout oo sections-ka wada
+// Landing Page Home Component
 const Home = () => (
   <>
     <Helmet>
@@ -31,7 +23,7 @@ const Home = () => (
     <Hero />
     <Courses />
     <Mentorship />
-    <StoriesSection/>
+    <StoriesSection />
     <PDFBooks />
     <Footer />
   </>
@@ -39,28 +31,12 @@ const Home = () => (
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          {/* Home Page */}
-          <Route path="/" element={<Home />} />
-
-          {/* Auth Pages */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-
-          {/* Protected Video Upload Page */}
-          <Route
-            path="/videos"
-            element={
-              <ProtectedRoute>
-                <UploadVideo />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Router>
-    </AuthProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* Waan tirtiray login, register, dashboard, ProtectedRoute, AdminRoute */}
+      </Routes>
+    </Router>
   );
 }
 

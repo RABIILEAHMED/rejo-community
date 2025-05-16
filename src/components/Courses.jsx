@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCode, FaPalette, FaMoneyBillWave } from 'react-icons/fa';
-import Register from '../pages/Register';
 
 const courses = [
   {
@@ -40,31 +39,36 @@ const courses = [
 const Courses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [isEnrollModalOpen, setIsEnrollModalOpen] = useState(false);
 
-  const openModal = (course) => {
+  const openDetailsModal = (course) => {
     setSelectedCourse(course);
+    setModalMessage('');
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeDetailsModal = () => {
     setIsModalOpen(false);
     setSelectedCourse(null);
     setModalMessage('');
   };
 
-  const openRegisterModal = (course) => {
+  const openEnrollModal = (course) => {
     if (course.comingSoon) {
-      setModalMessage('Course kan wali waxa ku socda shaqo');
       setSelectedCourse(course);
+      setModalMessage('Course kan wali waxa ku socda shaqo');
       setIsModalOpen(true);
     } else {
-      setIsRegisterModalOpen(true);
+      setSelectedCourse(course);
+      setIsEnrollModalOpen(true);
     }
   };
 
-  const closeRegisterModal = () => setIsRegisterModalOpen(false);
+  const closeEnrollModal = () => {
+    setIsEnrollModalOpen(false);
+    setSelectedCourse(null);
+  };
 
   return (
     <section id="courses" className="relative py-20 px-4 bg-light dark:bg-dark transition-colors duration-500 overflow-hidden">
@@ -120,23 +124,30 @@ const Courses = () => {
               <p className="text-gray-800 dark:text-white font-semibold mb-4">
                 Price: <span className={course.price === 'Free' ? 'text-green-500' : 'text-yellow-500'}>{course.price}</span>
               </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => openModal(course)}
-                className="bg-primary hover:bg-yellow-600 text-white font-medium px-3 py-1.5 rounded-md text-sm mr-4"
-              >
-                View Details
-              </motion.button>
+              <div className="flex">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => openDetailsModal(course)}
+                  className="bg-primary hover:bg-yellow-600 text-white font-medium px-3 py-1.5 rounded-md text-sm mr-3"
+                >
+                  View Details
+                </motion.button>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => openRegisterModal(course)}
-                className="bg-green-500 hover:bg-green-600 text-white font-medium px-3 py-1.5 rounded-md text-sm"
-              >
-                Enroll
-              </motion.button>
+                <motion.button
+                  whileHover={{ scale: course.comingSoon ? 1 : 1.05 }}
+                  whileTap={{ scale: course.comingSoon ? 1 : 0.95 }}
+                  onClick={() => openEnrollModal(course)}
+                  className={`font-medium px-3 py-1.5 rounded-md text-sm ${
+                    course.comingSoon
+                      ? 'bg-gray-400 text-white cursor-not-allowed'
+                      : 'bg-green-600 hover:bg-green-700 text-white cursor-pointer'
+                  }`}
+                  disabled={course.comingSoon}
+                >
+                  Enroll
+                </motion.button>
+              </div>
             </div>
           </motion.div>
         ))}
@@ -170,7 +181,8 @@ const Courses = () => {
                     Telegram
                   </button>
                 </div>
-              ) : (<>
+              ) : (
+                <>
                   <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
                     {selectedCourse.title}
                   </h3>
@@ -180,7 +192,6 @@ const Courses = () => {
                   <p className="text-gray-800 dark:text-white font-semibold mb-6">
                     Price: <span className={selectedCourse.price === 'Free' ? 'text-green-500' : 'text-yellow-500'}>{selectedCourse.price}</span>
                   </p>
-
                   <div className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
                     <h4>Course Curriculum:</h4>
                     <ul className="list-decimal pl-5 space-y-2">
@@ -197,7 +208,7 @@ const Courses = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={closeModal}
+                  onClick={closeDetailsModal}
                   className="bg-primary hover:bg-yellow-600 text-white font-medium px-4 py-1.5 rounded-md text-sm"
                 >
                   Close
@@ -208,9 +219,9 @@ const Courses = () => {
         )}
       </AnimatePresence>
 
-      {/* Register Modal */}
+      {/* Enroll Modal */}
       <AnimatePresence>
-        {isRegisterModalOpen && (
+        {isEnrollModalOpen && selectedCourse && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -222,15 +233,32 @@ const Courses = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 100 }}
-              className="bg-white dark:bg-[#2a2a2a] rounded-xl p-6 w-full max-w-lg shadow-2xl relative"
+              className="bg-white dark:bg-[#2a2a2a] rounded-xl p-6 max-w-md w-full shadow-2xl text-center"
             >
-              <button
-                onClick={closeRegisterModal}
-                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white text-xl"
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
+                {`You have enrolled in "${selectedCourse.title}"!`}
+              </h3>
+              <p className="mb-6 text-gray-600 dark:text-dark2">
+                Si aad uga mid noqoto bulshadeena Forex, fadlan ku biiro kanaalka Telegram-ka:
+              </p>
+              <a
+                href="https://t.me/rejocommunity"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-md transition"
               >
-                ✕
-              </button>
-              <Register onClose={closeRegisterModal} />
+                Join Telegram
+              </a>
+              <div className="mt-6">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={closeEnrollModal}
+                  className="bg-primary hover:bg-yellow-600 text-white font-medium px-4 py-1.5 rounded-md text-sm"
+                >
+                  Close
+                </motion.button>
+              </div>
             </motion.div>
           </motion.div>
         )}

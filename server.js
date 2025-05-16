@@ -9,11 +9,9 @@ app.use(express.json());
 
 const PORT = 5000;
 
-// Endpoint for verifying phone number
 app.post("/api/verify", (req, res) => {
   const { phone } = req.body;
 
-  // Read the JSON file
   fs.readFile("paymentData.json", "utf8", (err, data) => {
     if (err) {
       console.error("Error reading paymentData.json:", err);
@@ -23,11 +21,7 @@ app.post("/api/verify", (req, res) => {
     const paymentData = JSON.parse(data);
     const isPaid = paymentData.payments.some(entry => entry.phone === phone);
 
-    if (isPaid) {
-      res.json({ access: true });
-    } else {
-      res.json({ access: false });
-    }
+    res.json({ access: isPaid });
   });
 });
 

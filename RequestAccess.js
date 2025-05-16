@@ -13,9 +13,9 @@ const RequestAccess = () => {
       const response = await axios.post("http://localhost:5000/api/check-payment", { transactionId });
       
       if (response.data.success) {
-        setMessage("Lacagtaada waa la xaqiijiyey! Waxaad hadda bilaabi kartaa download.");
+        setMessage("Phone-kaaga waa la xaqiijiyey! Waxaad hadda bilaabi kartaa download ka.");
       } else {
-        setMessage("Wali lacag maad bixin. Fadlan xaqiiji transaction ID-gaaga.");
+        setMessage("Wali Phone-kaaga lama xaqiijin. Fadlan xaqiiji Phone ID-gaaga.");
       }
     } catch (error) {
       setMessage("Waxaa dhacay cilad. Fadlan isku day mar kale.");

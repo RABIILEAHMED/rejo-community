@@ -6,8 +6,8 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const books = [
-  { title: '📘 Full Stack Developer Guide', file: '/pdfs/scfx.pdf' },
-  { title: '📗 Forex Trading Basics', file: '/pdfs/forex-trading-basics.pdf' },
+  { title: '📘 Institutional Order flow', file: '/pdfs/OrderFlow.pdf' },
+  { title: '📗 IRL and IRL Range LQ ', file: '/pdfs/IRL and ERL.pdf' },
   { title: '📙 Productivity Hacks eBook', file: '/pdfs/productivity-hacks.pdf' },
   { title: '📕 Advanced React Handbook', file: '/pdfs/advanced-react.pdf' },
   { title: '📒 JavaScript Mastery', file: '/pdfs/js-mastery.pdf' },
