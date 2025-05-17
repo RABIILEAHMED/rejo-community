@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
 import paymentData from "../data/paymentData.json"; // Make sure the path is correct
-import '@react-pdf-viewer/core/lib/styles/index.css';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const books = [
   { title: '📘 Institutional Order flow', file: '/pdfs/OrderFlow.pdf' },
@@ -42,7 +38,7 @@ const PDFBooks = () => {
     const sanitizedPhone = phone.trim().replace(/\s+/g, '');
     const bookKey = `${sanitizedPhone}_${selectedBook.title}`;
 
-    const paidUsers = paymentData.payments.flat(); // ✅ Handle nested array
+    const paidUsers = paymentData.payments.flat();
 
     if (!paidUsers.includes(sanitizedPhone)) {
       setError('Lambarka laguma darin liiska dadka bixiyay.');
