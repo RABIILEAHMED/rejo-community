@@ -41,7 +41,7 @@ const PDFBooks = () => {
     const paidUsers = paymentData.payments.flat();
 
     if (!paidUsers.includes(sanitizedPhone)) {
-      setError('Lambarka laguma darin liiska dadka bixiyay.');
+      setError('Lambarkaagu ma diwaan gashana | register for free then download.',);
       return;
     }
 
@@ -113,7 +113,7 @@ const PDFBooks = () => {
 
             {!accessGranted ? (
               <>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">Geli lambarka bixinta si aad u hesho buuggan.</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">Geli lambarkaaga si aad u hesho buuggan .</p>
                 <input
                   type="text"
                   value={phone}
