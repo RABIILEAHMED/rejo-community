@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import paymentData from "../data/paymentData.json"; // Make sure the path is correct
+import paymentData from "../data/paymentData.json";
 
 const books = [
   { title: '📘 Institutional Order flow', file: '/pdfs/OrderFlow.pdf' },
@@ -22,26 +22,43 @@ const PDFBooks = () => {
     const saved = localStorage.getItem('downloads');
     return saved ? JSON.parse(saved) : {};
   });
+  const [requestingQuickDownload, setRequestingQuickDownload] = useState(false);
 
   const totalPages = Math.ceil(books.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentBooks = books.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
+  const instantDownloadTitles = [
+    '📘 Institutional Order flow',
+    '📗 IRL and IRL Range LQ '
+  ];
+
   const handlePreview = (book) => {
     setSelectedBook(book);
+    setPhone('');
     setAccessGranted(false);
     setError('');
-    setPhone('');
+
+    if (instantDownloadTitles.includes(book.title)) {
+      setRequestingQuickDownload(true);
+    } else {
+      setRequestingQuickDownload(false);
+    }
   };
 
   const handleVerify = () => {
     const sanitizedPhone = phone.trim().replace(/\s+/g, '');
-    const bookKey = `${sanitizedPhone}_${selectedBook.title}`;
+
+    if (!sanitizedPhone) {
+      setError('Fadlan geli lambarka taleefanka.');
+      return;
+    }
 
     const paidUsers = paymentData.payments.flat();
+    const bookKey = `${sanitizedPhone}_${selectedBook.title}`;
 
     if (!paidUsers.includes(sanitizedPhone)) {
-      setError('Lambarkaagu ma diwaan gashana | register for free then download.',);
+      setError('Lambarkaagu ma diwaan gashana | register for free then download.');
       return;
     }
 
@@ -54,15 +71,26 @@ const PDFBooks = () => {
     setDownloads(newDownloads);
     localStorage.setItem('downloads', JSON.stringify(newDownloads));
 
-    setAccessGranted(true);
-    setError('');
+    if (requestingQuickDownload) {
+      const link = document.createElement('a');
+      link.href = selectedBook.file;
+      link.setAttribute('download', '');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      closeModal();
+    } else {
+      setAccessGranted(true);
+      setError('');
+    }
   };
 
   const closeModal = () => {
     setSelectedBook(null);
     setPhone('');
-    setError('');
     setAccessGranted(false);
+    setError('');
+    setRequestingQuickDownload(false);
   };
 
   return (
@@ -109,24 +137,37 @@ const PDFBooks = () => {
       {selectedBook && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 w-[90%] max-w-md text-center">
-            <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">{selectedBook.title}</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
+              {selectedBook.title}
+            </h3>
 
             {!accessGranted ? (
               <>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">Geli lambarkaaga si aad u hesho buuggan .</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Geli lambarkaaga si aad u hesho buuggan.
+                </p>
                 <input
                   type="text"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Tusaale: 634824495"
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    if (e.target.value.trim() !== '') setError('');
+                  }}
+                  onBlur={() => {
+                    if (phone.trim() === '') {
+                      setError('Fadlan geli lambarka taleefanka.');
+                    }
+                  }}
+                  placeholder="Tusaale: 6347340..."
                   className="w-full p-3 rounded-lg border border-gray-300 mb-4 dark:bg-gray-700 dark:text-white"
                 />
+
                 <div className="flex flex-col space-y-3">
                   <button
                     onClick={handleVerify}
                     className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600"
                   >
-                    Codso Gelitaan
+                    {requestingQuickDownload ? "Download Now" : "Codso Gelitaan"}
                   </button>
                   <button
                     onClick={closeModal}
@@ -139,7 +180,9 @@ const PDFBooks = () => {
               </>
             ) : (
               <>
-                <p className="text-green-600 font-semibold mb-6">✅ Waad xaqiijisay. Halkan ka soo degso buugga:</p>
+                <p className="text-green-600 font-semibold mb-6">
+                  ✅ Waad xaqiijisay. Halkan ka soo degso buugga:
+                </p>
                 <a
                   href={selectedBook.file}
                   download

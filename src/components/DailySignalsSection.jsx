@@ -5,22 +5,24 @@ const signals = [
   {
     id: 1,
     pair: "EUR/USD",
-    type: "Buy",
-    entry: "1.0800",
-    sl: "1.0750",
-    tp: "1.0900",
-    time: "12-Apr-2025 10:30 AM",
+    type: "Sell",
+    entry: "1.11996",
+    sl: "1.12069",
+    tp: "1.11526",
+    time: "16-May-2025 02:30 PM",
     result: "tp",
+    tvLink: "https://www.tradingview.com/x/KkDg8uuf/",  // Link gaar ah signal 1
   },
   {
     id: 2,
     pair: "GBP/USD",
-    type: "Sell",
-    entry: "1.2600",
-    sl: "1.2650",
-    tp: "1.2500",
-    time: "12-Apr-2025 08:00 AM",
+    type: "Buy",
+    entry: "1.32006",
+    sl: "1.31894",
+    tp: "1.32578",
+    time: "12-May-2025 05:15 PM",
     result: "sl",
+    tvLink: "https://www.tradingview.com/x/usTVll7w/",  // Link gaar ah signal 2 (tusaale)
   },
   {
     id: 3,
@@ -30,7 +32,9 @@ const signals = [
     sl: "3210.22",
     tp: "3233.39",
     time: "15-Apr-2025 10:54 AM",
-    result: "active",
+    // result: "active",
+    result: "tp",
+    tvLink: "https://www.tradingview.com/x/gk3nq3zY/",  // Link gaar ah signal 3 (tusaale)
   },
 ];
 
@@ -87,6 +91,7 @@ const DailySignalsSection = () => {
             <button
               onClick={() => setSelectedSignal(null)}
               className="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 rounded-full w-8 h-8 text-sm"
+              aria-label="Close modal"
             >
               ✕
             </button>
@@ -96,6 +101,33 @@ const DailySignalsSection = () => {
             <p><strong>Stop Loss:</strong> {selectedSignal.sl}</p>
             <p><strong>Take Profit:</strong> {selectedSignal.tp}</p>
             <p className="text-sm text-gray-400 mt-4 text-center">Posted on {selectedSignal.time}</p>
+
+            {/* TradingView Link unique for each signal */}
+            <div className="mt-4 flex justify-center">
+              <a
+                href={selectedSignal.tvLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-blue-400 hover:underline text-sm"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 mr-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 3h7v7m0 0L10 21l-7-7L21 3z"
+                  />
+                </svg>
+                View on TradingView
+              </a>
+            </div>
+
             {showResults && (
               <div className="mt-4 text-center">
                 {resultIcon(selectedSignal.result)}
