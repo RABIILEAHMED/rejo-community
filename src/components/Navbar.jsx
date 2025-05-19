@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { FaBell, FaDiscord, FaTelegramPlane, FaYoutube } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true); // Dark mode default ON
-  const [newMessage, setNewMessage] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
+  const [newMessage, setNewMessage] = useState(true);  // Halkan ka dhig true si uu alert u muuqdo marka page la furo
   const [messageClicked, setMessageClicked] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
 
-    // Show toast 5 seconds after mount
-    const toastTimer = setTimeout(() => {
-      setShowToast(true);
-    }, 5000);
-
+    const toastTimer = setTimeout(() => setShowToast(true), 5000);
     return () => clearTimeout(toastTimer);
   }, [darkMode]);
 
@@ -31,39 +28,59 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleClick = () => {
+  const handleNotificationClick = () => {
     setMessageClicked(true);
-    // Here you can also trigger modal if you want
+    setNewMessage(false);  // Mark newMessage as read
+    navigate('/updates');
+    setIsOpen(false);
   };
 
   const closeToast = () => {
     setShowToast(false);
   };
 
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
+    setIsOpen(false);
+  };
+
   return (
     <>
       <nav
-        className={`bg-white dark:bg-gray-900 shadow-md py-4 px-6 flex justify-between items-center ${
+        className={`bg-white dark:bg-gray-900 shadow-md px-6 py-4 flex justify-between items-center transition-all duration-300 ${
           scrolling ? 'fixed top-0 left-0 w-full z-50' : 'relative'
         }`}
       >
+        {/* Brand */}
         <h1
           className="text-2xl font-bold text-gray-800 dark:text-white cursor-pointer"
-          onClick={() => navigate('/')}
+          onClick={() => {
+            navigate('/');
+            setIsOpen(false);
+          }}
         >
           Rejo <span className="text-yellow-500">Community</span>
         </h1>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 text-gray-700 dark:text-gray-300 font-medium items-center">
-          <li><a href="#home" className="hover:text-yellow-500">Home</a></li>
-          <li><a href="#courses" className="hover:text-yellow-500">Courses</a></li>
-          <li><a href="#mentorship" className="hover:text-yellow-500">Mentorship</a></li>
-          <li><a href="#pdfbooks" className="hover:text-yellow-500">PDF Books</a></li>
+          {location.pathname === '/' ? (
+            <>
+              <li><button onClick={() => scrollToSection('home')} className="hover:text-yellow-500">Home</button></li>
+              <li><button onClick={() => scrollToSection('courses')} className="hover:text-yellow-500">Courses</button></li>
+              <li><button onClick={() => scrollToSection('mentorship')} className="hover:text-yellow-500">Mentorship</button></li>
+              <li><button onClick={() => scrollToSection('pdfbooks')} className="hover:text-yellow-500">PDF Books</button></li>
+            </>
+          ) : (
+            <li><button onClick={() => navigate('/')} className="hover:text-yellow-500">Home</button></li>
+          )}
+          <li><button onClick={() => navigate('/updates')} className="hover:text-yellow-500">Updates</button></li>
         </ul>
 
-        {/* Social + Controls */}
+        {/* Right Side */}
         <div className="flex items-center space-x-4">
+          {/* Social Icons (Desktop) */}
           <div className="hidden md:flex space-x-4 text-xl text-gray-700 dark:text-gray-300">
             <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
               <FaDiscord />
@@ -81,22 +98,24 @@ const Navbar = () => {
             {darkMode ? '☀️' : '🌙'}
           </button>
 
-          {/* Notification Bell */}
+          {/* Notifications */}
           <div className="relative">
-            <button onClick={handleClick} className="text-xl text-gray-800 dark:text-white" aria-label="Notifications">
+            <button
+              onClick={handleNotificationClick}
+              className="text-xl text-gray-800 dark:text-white"
+              aria-label="Notifications"
+            >
               <FaBell />
             </button>
             {newMessage && !messageClicked && (
-              <div className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center animate-pulse">
-                !
-              </div>
+              <span className="absolute top-0 right-0 bg-red-500 text-white w-4 h-4 text-xs rounded-full flex items-center justify-center animate-pulse">!</span>
             )}
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden" aria-label="Toggle menu">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-800 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+          {/* Mobile Toggle */}
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-gray-800 dark:text-white" aria-label="Toggle menu">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
@@ -105,10 +124,17 @@ const Navbar = () => {
         {isOpen && (
           <div className="absolute top-16 right-0 bg-white dark:bg-gray-800 shadow-lg w-full px-6 py-4 md:hidden z-40">
             <ul className="space-y-4 text-gray-700 dark:text-gray-200 font-medium">
-              <li><a href="#home" className="hover:text-yellow-500" onClick={() => setIsOpen(false)}>Home</a></li>
-              <li><a href="#courses" className="hover:text-yellow-500" onClick={() => setIsOpen(false)}>Courses</a></li>
-              <li><a href="#mentorship" className="hover:text-yellow-500" onClick={() => setIsOpen(false)}>Mentorship</a></li>
-              <li><a href="#pdfbooks" className="hover:text-yellow-500" onClick={() => setIsOpen(false)}>PDF Books</a></li>
+              {location.pathname === '/' ? (
+                <>
+                  <li><button onClick={() => scrollToSection('home')} className="hover:text-yellow-500">Home</button></li>
+                  <li><button onClick={() => scrollToSection('courses')} className="hover:text-yellow-500">Courses</button></li>
+                  <li><button onClick={() => scrollToSection('mentorship')} className="hover:text-yellow-500">Mentorship</button></li>
+                  <li><button onClick={() => scrollToSection('pdfbooks')} className="hover:text-yellow-500">PDF Books</button></li>
+                </>
+              ) : (
+                <li><button onClick={() => { navigate('/'); setIsOpen(false); }} className="hover:text-yellow-500">Home</button></li>
+              )}
+              <li><button onClick={() => { navigate('/updates'); setIsOpen(false); }} className="hover:text-yellow-500">Updates</button></li>
             </ul>
 
             <div className="flex justify-center mt-4 space-x-6 text-xl text-gray-700 dark:text-gray-300">
@@ -130,9 +156,7 @@ const Navbar = () => {
       {showToast && (
         <div className="fixed bottom-6 right-6 bg-yellow-500 text-white px-4 py-2 rounded shadow-lg flex items-center space-x-4 z-50">
           <span>Xirfaduhu waa furaha kalsoonidaada nololeed</span>
-          <button onClick={closeToast} aria-label="Close toast" className="font-bold hover:text-gray-900">
-            X
-          </button>
+          <button onClick={closeToast} className="font-bold hover:text-gray-900">X</button>
         </div>
       )}
     </>
