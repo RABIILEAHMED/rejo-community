@@ -39,7 +39,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
         >
-          Horumari xirfadahaaga sida Web Development, AI, iyo Forex trading si aad u gaarto xirfad sare.
+          Horumari xirfadahaaga sida Web Development, UI/UX, iyo Forex trading si aad u gaarto xirfad sare.
         </motion.p>
         <motion.button
   onClick={() => window.open('https://t.me/rejocommunity', '_blank')}
