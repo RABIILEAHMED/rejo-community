@@ -18,7 +18,7 @@ const certifications = [
   {
     category: 'Development',
     title: 'Professional Development Training',
-    image: '/images/rabiile.jpg',
+    image: '/images/rabiile1.JPG',
     pdf: '/certificates/dedaal-certificate.pdf',
   },
   {
