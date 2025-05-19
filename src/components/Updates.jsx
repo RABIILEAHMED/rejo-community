@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaCheckCircle, FaVideo, FaBook } from 'react-icons/fa';
+import { FaCheckCircle, FaVideo, FaBook, FaTelegramPlane } from 'react-icons/fa';
 
 const Updates = () => {
   return (
@@ -51,7 +51,7 @@ const Updates = () => {
         </li>
       </ul>
 
-      <div className="mt-8 p-4 bg-yellow-100 dark:bg-yellow-800 text-yellow-900 dark:text-yellow-100 rounded-lg">
+      <div className="mt-8 p-4 bg-yellow-100 dark:bg-yellow-800 text-yellow-900 dark:text-yellow-100 rounded-lg flex items-center">
         <FaVideo className="inline mr-2" />
         <strong>🎥 Live Trades Review:</strong> Daawo sida dhammaan fikradahan loogu dabaqay suuqa dhabta ah.
       </div>
@@ -59,6 +59,19 @@ const Updates = () => {
       <div className="mt-8 p-4 bg-green-100 dark:bg-green-800 text-green-900 dark:text-green-100 rounded-lg">
         <FaBook className="inline mr-2" />
         <strong>✅ Marka aad dhamayso content-ga:</strong> waa in aad si buuxda ugu diyaarin karto inaad sameyso entries xirfad leh — oo ku saleysan wakhti, qiime, liquidity, iyo xaqiijin cad.
+      </div>
+
+      {/* Join the Course Button */}
+      <div className="mt-10 flex justify-center">
+        <a
+          href="https://t.me/rejocommunity"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded shadow-md transition"
+        >
+          <FaTelegramPlane className="mr-2 text-xl" />
+          Join the Course
+        </a>
       </div>
     </div>
   );
