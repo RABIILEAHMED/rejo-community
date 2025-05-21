@@ -19,21 +19,35 @@ const courses = [
     icon: <FaMoneyBillWave className="text-white text-lg" />, iconBg: 'bg-yellow-500',
     price: '$0',
     curriculum: [
-      'Market Mapping Key concepts', 'Liquidity Pools key concepts', 'Timeframe Usage 4H -15M',
-      'Institutional Order flow', 'Assian Highs & Lows strategy', 'London Kill Zone Strategy',
-      'Acummulaiton , Manipulation, Distrabution', 'Risk Management in Trading'
+      'Market Mapping Key concepts',
+      'Liquidity Pools key concepts',
+      'Timeframe Usage 4H -15M',
+      'Institutional Order flow',
+      'Assian Highs & Lows strategy',
+      'London Kill Zone Strategy',
+      'Acummulaiton , Manipulation, Distrabution',
+      'Risk Management in Trading'
     ],
     comingSoon: false
   },
-  {
-    title: 'UI/UX Design Basics',
-    description: 'Ku baro sida loo sameeyo design interface wanaagsan oo user-friendly ah.',
-    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    icon: <FaPalette className="text-white text-lg" />, iconBg: 'bg-purple-500',
-    price: '$49.99',
-    curriculum: [],
-    comingSoon: true
-  }
+ {
+  title: 'One to One Coaching',
+  description: 'One to One Coaching - Ku baro design user interface leh oo xirfadaysan, adigoo helaya hagid toos ah.',
+  image: "https://plus.unsplash.com/premium_photo-1682125773446-259ce64f9dd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+  icon: <FaPalette className="text-white text-lg" />, iconBg: 'bg-purple-500',
+  price: '$49.99',
+  curriculum: [
+    'Fahamka UI/UX: Maxay yihiin?',
+    'Tools: Figma, Adobe XD',
+    'Wireframing & Prototyping',
+    'Design Principles & Best Practices',
+    'Color Theory & Typography',
+    'Mobile vs Desktop Design',
+    'User Testing & Feedback',
+    'Portfolio Setup & Mentorship Guidance'
+  ],
+  comingSoon: false
+}
 ];
 
 const Courses = () => {
@@ -55,6 +69,11 @@ const Courses = () => {
   };
 
   const openEnrollModal = (course) => {
+    if (course.title === 'UI/UX Design Basics') {
+      window.open('https://wa.me/252634734075', '_blank');
+      return;
+    }
+
     if (course.comingSoon) {
       setSelectedCourse(course);
       setModalMessage('Course kan wali waxa ku socda shaqo');
@@ -141,7 +160,9 @@ const Courses = () => {
                   className={`font-medium px-3 py-1.5 rounded-md text-sm ${
                     course.comingSoon
                       ? 'bg-gray-400 text-white cursor-not-allowed'
-                      : 'bg-green-600 hover:bg-green-700 text-white cursor-pointer'
+                      : course.title === 'UI/UX Design Basics'
+                        ? 'bg-green-600 hover:bg-green-700 text-white'
+                        : 'bg-green-600 hover:bg-green-700 text-white cursor-pointer'
                   }`}
                   disabled={course.comingSoon}
                 >
@@ -153,7 +174,6 @@ const Courses = () => {
         ))}
       </div>
 
-      {/* Course Details Modal */}
       <AnimatePresence>
         {isModalOpen && selectedCourse && (
           <motion.div
@@ -192,16 +212,18 @@ const Courses = () => {
                   <p className="text-gray-800 dark:text-white font-semibold mb-6">
                     Price: <span className={selectedCourse.price === 'Free' ? 'text-green-500' : 'text-yellow-500'}>{selectedCourse.price}</span>
                   </p>
-                  <div className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-                    <h4>Course Curriculum:</h4>
-                    <ul className="list-decimal pl-5 space-y-2">
-                      {selectedCourse.curriculum.map((section, index) => (
-                        <li key={index} className="text-gray-800 dark:text-white">
-                          {section}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {selectedCourse.curriculum.length > 0 && (
+                    <div className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                      <h4>Course Curriculum:</h4>
+                      <ul className="list-decimal pl-5 space-y-2">
+                        {selectedCourse.curriculum.map((section, index) => (
+                          <li key={index} className="text-gray-800 dark:text-white">
+                            {section}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </>
               )}
               <div className="flex justify-end mt-4">
@@ -219,7 +241,6 @@ const Courses = () => {
         )}
       </AnimatePresence>
 
-      {/* Enroll Modal */}
       <AnimatePresence>
         {isEnrollModalOpen && selectedCourse && (
           <motion.div
