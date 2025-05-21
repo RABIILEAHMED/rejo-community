@@ -30,24 +30,24 @@ const courses = [
     ],
     comingSoon: false
   },
- {
-  title: 'One to One Coaching',
-  description: 'One to One Coaching - Ku baro design user interface leh oo xirfadaysan, adigoo helaya hagid toos ah.',
-  image: "https://plus.unsplash.com/premium_photo-1682125773446-259ce64f9dd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  icon: <FaPalette className="text-white text-lg" />, iconBg: 'bg-purple-500',
-  price: '$49.99',
-  curriculum: [
-    'Fahamka UI/UX: Maxay yihiin?',
-    'Tools: Figma, Adobe XD',
-    'Wireframing & Prototyping',
-    'Design Principles & Best Practices',
-    'Color Theory & Typography',
-    'Mobile vs Desktop Design',
-    'User Testing & Feedback',
-    'Portfolio Setup & Mentorship Guidance'
-  ],
-  comingSoon: false
-}
+  {
+    title: 'One to One Coaching',
+    description: 'One to One Coaching - Ku baro design user interface leh oo xirfadaysan, adigoo helaya hagid toos ah.',
+    image: "https://plus.unsplash.com/premium_photo-1682125773446-259ce64f9dd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: <FaPalette className="text-white text-lg" />, iconBg: 'bg-purple-500',
+    price: '$49.99',
+    curriculum: [
+      'Fahamka UI/UX: Maxay yihiin?',
+      'Tools: Figma, Adobe XD',
+      'Wireframing & Prototyping',
+      'Design Principles & Best Practices',
+      'Color Theory & Typography',
+      'Mobile vs Desktop Design',
+      'User Testing & Feedback',
+      'Portfolio Setup & Mentorship Guidance'
+    ],
+    comingSoon: false
+  }
 ];
 
 const Courses = () => {
@@ -71,6 +71,15 @@ const Courses = () => {
   const openEnrollModal = (course) => {
     if (course.title === 'UI/UX Design Basics') {
       window.open('https://wa.me/252634734075', '_blank');
+      return;
+    }
+
+    if (course.title === 'One to One Coaching') {
+      window.open(
+  'https://wa.me/252634734075?text=Waan%20salaamanahay!%20Waxaan%20xiiseynayaa%20inaan%20iska%20diiwaangeliyo%20%22One%20to%20One%20Coaching%22.%20Fadlan%20iiga%20soo%20jawaab.',
+  '_blank'
+);
+
       return;
     }
 
