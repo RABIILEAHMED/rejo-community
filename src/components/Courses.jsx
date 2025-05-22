@@ -7,7 +7,8 @@ const courses = [
     title: 'Full Stack Web Development',
     description: 'Baro HTML, CSS, JavaScript, React & Node.js adigoo af-Soomaali ku baranaya.',
     image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    icon: <FaCode className="text-white text-lg" />, iconBg: 'bg-blue-500',
+    icon: <FaCode className="text-white text-lg" />,
+    iconBg: 'bg-blue-500',
     price: '$30',
     curriculum: [],
     comingSoon: true
@@ -16,7 +17,8 @@ const courses = [
     title: 'Professional Forex Trading',
     description: 'Barashada suuqa Forex iyo sida loo sameeyo ganacsi guuleed oo waara.',
     image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    icon: <FaMoneyBillWave className="text-white text-lg" />, iconBg: 'bg-yellow-500',
+    icon: <FaMoneyBillWave className="text-white text-lg" />,
+    iconBg: 'bg-yellow-500',
     price: '$0',
     curriculum: [
       'Market Mapping Key concepts',
@@ -34,7 +36,8 @@ const courses = [
     title: 'One to One Coaching',
     description: 'One to One Coaching - Ku baro design user interface leh oo xirfadaysan, adigoo helaya hagid toos ah.',
     image: "https://plus.unsplash.com/premium_photo-1682125773446-259ce64f9dd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    icon: <FaPalette className="text-white text-lg" />, iconBg: 'bg-purple-500',
+    icon: <FaPalette className="text-white text-lg" />,
+    iconBg: 'bg-purple-500',
     price: '$49.99',
     curriculum: [
       'Fahamka UI/UX: Maxay yihiin?',
@@ -69,6 +72,12 @@ const Courses = () => {
   };
 
   const openEnrollModal = (course) => {
+    if (course.title === 'Professional Forex Trading') {
+      // Telegram link for Professional Forex Trading enroll
+      window.open('https://t.me/rejocommunity', '_blank'); // <-- Update your Telegram link here
+      return;
+    }
+
     if (course.title === 'UI/UX Design Basics') {
       window.open('https://wa.me/252634734075', '_blank');
       return;
@@ -76,10 +85,9 @@ const Courses = () => {
 
     if (course.title === 'One to One Coaching') {
       window.open(
-  'https://wa.me/252634734075?text=Waan%20salaamanahay!%20Waxaan%20xiiseynayaa%20inaan%20iska%20diiwaangeliyo%20%22One%20to%20One%20Coaching%22.%20Fadlan%20iiga%20soo%20jawaab.',
-  '_blank'
-);
-
+        'https://wa.me/252634734075?text=Waan%20salaamanahay!%20Waxaan%20xiiseynayaa%20inaan%20iska%20diiwaangeliyo%20%22One%20to%20One%20Coaching%22.%20Fadlan%20iiga%20soo%20jawaab.',
+        '_blank'
+      );
       return;
     }
 
@@ -127,13 +135,29 @@ const Courses = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             whileHover={{ scale: 1.03 }}
-            className="bg-white dark:bg-[#1f1f1f] rounded-xl shadow-md overflow-hidden relative"
+            className="bg-white dark:bg-[#1f1f1f] rounded-xl shadow-md overflow-hidden relative cursor-pointer
+              border-2 border-transparent
+              hover:border-yellow-400
+              transition-all duration-300
+              "
           >
+            {/* Animated glow border on hover */}
+            <motion.div
+              className="absolute inset-0 pointer-events-none rounded-xl"
+              initial={{ opacity: 0 }}
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                boxShadow: '0 0 15px 3px rgba(252, 211, 77, 0.8)', // yellow glow
+                borderRadius: '12px'
+              }}
+            />
+
             <div className="relative">
               <motion.img
                 src={course.image}
                 alt={course.title}
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover rounded-t-xl"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               />
@@ -143,8 +167,15 @@ const Courses = () => {
             </div>
 
             <div className="p-6">
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3 relative inline-block">
                 {course.title}
+                <motion.span
+                  className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-yellow-400 to-pink-500 rounded-full origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  style={{ transformOrigin: 'left' }}
+                />
               </h3>
               <p className="text-gray-600 dark:text-dark2 mb-2">
                 {course.description}
@@ -199,58 +230,39 @@ const Courses = () => {
               className="bg-white dark:bg-[#2a2a2a] rounded-xl p-6 max-w-2xl w-full shadow-2xl"
             >
               {modalMessage ? (
-                <div className="text-center">
-                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4">
-                    {modalMessage}
-                  </h3>
-                  <button
-                    disabled
-                    className="bg-gray-400 text-white font-semibold py-2 px-4 rounded cursor-not-allowed"
-                  >
-                    Telegram
-                  </button>
+                <div className="text-center text-gray-800 dark:text-white text-lg font-semibold">
+                  {modalMessage}
                 </div>
               ) : (
                 <>
-                  <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-                    {selectedCourse.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-dark2 mb-2">
-                    {selectedCourse.description}
-                  </p>
-                  <p className="text-gray-800 dark:text-white font-semibold mb-6">
-                    Price: <span className={selectedCourse.price === 'Free' ? 'text-green-500' : 'text-yellow-500'}>{selectedCourse.price}</span>
-                  </p>
-                  {selectedCourse.curriculum.length > 0 && (
-                    <div className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-                      <h4>Course Curriculum:</h4>
-                      <ul className="list-decimal pl-5 space-y-2">
-                        {selectedCourse.curriculum.map((section, index) => (
-                          <li key={index} className="text-gray-800 dark:text-white">
-                            {section}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <h3 className="text-2xl font-bold mb-4 dark:text-white">{selectedCourse.title}</h3>
+                  <ul className="list-disc list-inside space-y-2 mb-6 text-gray-700 dark:text-gray-300">
+                    {selectedCourse.curriculum.length === 0 ? (
+                      <li>No curriculum available.</li>
+                    ) : (
+                      selectedCourse.curriculum.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))
+                    )}
+                  </ul>
+                  <button
+                    onClick={() => setIsEnrollModalOpen(true)}
+                    className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md mr-4"
+                  >
+                    Enroll Now
+                  </button>
+                  <button
+                    onClick={closeDetailsModal}
+                    className="bg-gray-400 hover:bg-gray-500 text-white font-semibold px-4 py-2 rounded-md"
+                  >
+                    Close
+                  </button>
                 </>
               )}
-              <div className="flex justify-end mt-4">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={closeDetailsModal}
-                  className="bg-primary hover:bg-yellow-600 text-white font-medium px-4 py-1.5 rounded-md text-sm"
-                >
-                  Close
-                </motion.button>
-              </div>
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
 
-      <AnimatePresence>
         {isEnrollModalOpen && selectedCourse && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -263,32 +275,20 @@ const Courses = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 100 }}
-              className="bg-white dark:bg-[#2a2a2a] rounded-xl p-6 max-w-md w-full shadow-2xl text-center"
+              className="bg-white dark:bg-[#2a2a2a] rounded-xl p-6 max-w-md w-full shadow-2xl"
             >
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-                {`You have enrolled in "${selectedCourse.title}"!`}
+              <h3 className="text-xl font-bold mb-4 dark:text-white">
+                You have enrolled in "{selectedCourse.title}"!
               </h3>
-              <p className="mb-6 text-gray-600 dark:text-dark2">
-                Si aad uga mid noqoto bulshadeena Forex, fadlan ku biiro kanaalka Telegram-ka:
+              <p className="mb-6 text-gray-700 dark:text-gray-300">
+                Thank you for enrolling. Check your Telegram for further details.
               </p>
-              <a
-                href="https://t.me/rejocommunity"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-md transition"
+              <button
+                onClick={closeEnrollModal}
+                className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md"
               >
-                Join Telegram
-              </a>
-              <div className="mt-6">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={closeEnrollModal}
-                  className="bg-primary hover:bg-yellow-600 text-white font-medium px-4 py-1.5 rounded-md text-sm"
-                >
-                  Close
-                </motion.button>
-              </div>
+                Close
+              </button>
             </motion.div>
           </motion.div>
         )}
