@@ -25,7 +25,7 @@ const certifications = [
   {
     category: 'Trading',
     title: 'FundingPips Evaluation Stage',
-    image: '/images/funded.png',
+    image: '/images/funded1.png',
     pdf: '/certificates/fundingpips-certificate.pdf',
   },
   {
