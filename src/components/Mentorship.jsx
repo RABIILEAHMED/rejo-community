@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 const certifications = [
   {
     category: 'Trading',
     title: 'FundingPips Evaluation Stage',
-    image: '/images/fundingpips-certificate.png',
+    image: '/images/funded.png',
     pdf: '/certificates/fundingpips-certificate.pdf',
   },
   {
@@ -20,6 +21,12 @@ const certifications = [
     title: 'Professional Development Training',
     image: '/images/rabiile1.JPG',
     pdf: '/certificates/dedaal-certificate.pdf',
+  },
+  {
+    category: 'Trading',
+    title: 'FundingPips Evaluation Stage',
+    image: '/images/funded.png',
+    pdf: '/certificates/fundingpips-certificate.pdf',
   },
   {
     category: 'Development',
@@ -37,6 +44,19 @@ const Mentorship = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [filter, setFilter] = useState('All');
   const [scrollX, setScrollX] = useState(0);
+
+ const launchConfetti = () => {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 },
+  });
+
+  // 🎵 Sound effect
+  const audio = new Audio('/sounds/celebration.mp3');
+  audio.play();
+};
+
 
   const filteredCerts = filter === 'All'
     ? duplicatedCerts
@@ -60,8 +80,8 @@ const Mentorship = () => {
           </p>
 
           <ul className="text-left text-gray-700 dark:text-gray-300 max-w-xl mx-auto mb-8 space-y-3">
-            <li>✅ Tababar toos ah oo lala yeesho mentor-ka | screen share with zooms </li>
-            <li>✅ Live trades + signals si aad u dhisto aragtida aad ka haysatid khasaaraha iyo faa idada suuqan </li>
+            <li>✅ Tababar toos ah oo lala yeesho mentor-ka | screen share with zooms</li>
+            <li>✅ Live trades + signals si aad u dhisto aragtida aad ka haysatid khasaaraha iyo faa idada suuqan</li>
             <li>✅ Fursado helitaan acounts probfirms ah in lagula baasiyo phase 1 iyo phase 2</li>
             <li>✅ La socod joogto ah iyo feedback</li>
           </ul>
@@ -78,18 +98,17 @@ const Mentorship = () => {
             </a>
 
             <button
-               onClick={() => setSelectedVideo('https://www.youtube.com/embed/R-VjpFUlRME')}
-               className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition duration-300"
-                >
-          Daawo Video-ga Hordhaca
-</button>
-
+              onClick={() => setSelectedVideo('https://www.youtube.com/embed/R-VjpFUlRME')}
+              className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition duration-300"
+            >
+              Daawo Video-ga Hordhaca
+            </button>
           </div>
         </div>
 
         {/* Certificates Section */}
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-8">
-          Professional Certifications 
+          Professional Certifications
         </h2>
 
         <div className="flex justify-center gap-4 mb-10 flex-wrap">
@@ -118,23 +137,16 @@ const Mentorship = () => {
                 key={index}
                 whileHover={{ scale: 1.05 }}
                 className="relative min-w-[300px] max-w-xs bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden cursor-pointer"
-                onClick={() => setSelectedImage(cert.image)}
+                onClick={() => {
+                  setSelectedImage(cert.image);
+                  launchConfetti(); // Trigger animation
+                }}
               >
                 <img
                   src={cert.image}
                   alt={cert.title}
                   className="w-full h-56 object-cover"
                 />
-                {/* <div className="absolute bottom-3 left-3">
-                  <a
-                    href={cert.pdf}
-                    download
-                    className="text-sm bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded shadow-md"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Download PDF
-                  </a>
-                </div> */}
               </motion.div>
             ))}
           </motion.div>
@@ -158,7 +170,7 @@ const Mentorship = () => {
           </div>
         </div>
 
-        {/* Testimonial CTA 1 */}
+        {/* Testimonials */}
         <div className="mt-16 bg-gradient-to-r from-yellow-400 to-pink-500 text-white rounded-lg p-8">
           <h3 className="text-2xl font-bold mb-4">"I became a skilled trader in just 3 months!"</h3>
           <p className="mb-4">- Ahmed, A professional Forex trader who turned his passion into a full-time career with our mentorship program.</p>
@@ -172,7 +184,6 @@ const Mentorship = () => {
           </a>
         </div>
 
-        {/* Testimonial CTA 2 */}
         <div className="mt-16 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg p-8">
           <h3 className="text-2xl font-bold mb-4">"Live trading and signals changed the way I see the market."</h3>
           <p className="mb-4">- Fatima, After joining the mentorship, I gained confidence in my trades and significantly improved my profitability.</p>
@@ -186,7 +197,6 @@ const Mentorship = () => {
           </a>
         </div>
 
-        {/* Testimonial CTA 3 */}
         <div className="mt-16 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg p-8">
           <h3 className="text-2xl font-bold mb-4">"The mentorship was eye-opening, I now trade with a system."</h3>
           <p className="mb-4">- Yusuf, The mentorship program helped me create a trading system that consistently brings profits.</p>
