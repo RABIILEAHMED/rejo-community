@@ -33,21 +33,29 @@ const courses = [
     comingSoon: false
   },
   {
-    title: 'One to One Coaching',
-    description: 'One to One Coaching - Ku baro design user interface leh oo xirfadaysan, adigoo helaya hagid toos ah.',
+    title: 'Mentorship Coaching',
+    description: 'Mentorship Coaching – U gudub heerkaaga xiga ee trading ka ! Kaliya waxa qaadan kara mentorship kan ardayda horay u bartay suuqyadan ee u baahan hagid toos ah & nidaam la tijaabiyey oo isku xidhan.',
     image: "https://plus.unsplash.com/premium_photo-1682125773446-259ce64f9dd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     icon: <FaPalette className="text-white text-lg" />,
     iconBg: 'bg-purple-500',
     price: '$49.99',
     curriculum: [
-      'Fahamka UI/UX: Maxay yihiin?',
-      'Tools: Figma, Adobe XD',
-      'Wireframing & Prototyping',
-      'Design Principles & Best Practices',
-      'Color Theory & Typography',
-      'Mobile vs Desktop Design',
-      'User Testing & Feedback',
-      'Portfolio Setup & Mentorship Guidance'
+      'Fahamka OHLC & OLHC scenario ',
+      'Power of three strategy ',
+      'Timing and execution',
+      'Trading plan & Best Practices',
+      'Market Order-flow',
+      'how to use different time frames',
+      'what is liquidity & how to know liquidity',
+      'CRT - Model',
+      'SMT - concept',
+      'Model 1 strategy',
+      'Model 2 strategy',
+      'how to get my Edge in trading ',
+      'Risk management',
+      'KYC verivacation system with probfirms',
+      'Passing propfirms',
+      'Withdrawal system in probfirms '
     ],
     comingSoon: false
   }
