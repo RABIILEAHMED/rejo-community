@@ -38,7 +38,7 @@ const courses = [
     image: "https://plus.unsplash.com/premium_photo-1682125773446-259ce64f9dd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     icon: <FaPalette className="text-white text-lg" />,
     iconBg: 'bg-purple-500',
-    price: '$49.99',
+    price: '$59.99',
     curriculum: [
       'Fahamka OHLC & OLHC scenario ',
       'Power of three strategy ',
@@ -79,35 +79,43 @@ const Courses = () => {
     setModalMessage('');
   };
 
-  const openEnrollModal = (course) => {
-    if (course.title === 'Professional Forex Trading') {
-      // Telegram link for Professional Forex Trading enroll
-      window.open('https://t.me/rejocommunity', '_blank'); // <-- Update your Telegram link here
-      return;
-    }
+ const openEnrollModal = (course) => {
+  if (course.title === 'Professional Forex Trading') {
+    window.open('https://t.me/rejocommunity', '_blank');
+    return;
+  }
 
-    if (course.title === 'UI/UX Design Basics') {
-      window.open('https://wa.me/252634734075', '_blank');
-      return;
-    }
+  if (course.title === 'UI/UX Design Basics') {
+    window.open('https://wa.me/252634734075', '_blank');
+    return;
+  }
 
-    if (course.title === 'One to One Coaching') {
-      window.open(
-        'https://wa.me/252634734075?text=Waan%20salaamanahay!%20Waxaan%20xiiseynayaa%20inaan%20iska%20diiwaangeliyo%20%22One%20to%20One%20Coaching%22.%20Fadlan%20iiga%20soo%20jawaab.',
-        '_blank'
-      );
-      return;
-    }
+  if (course.title === 'Mentorship Coaching') {
+    window.open(
+      'https://wa.me/252634734075?text=Waan%20salaamanahay!%20Waxaan%20xiiseynayaa%20inaan%20iska%20diiwaangeliyo%20%22Mentorship%20Coaching%22.%20Fadlan%20iiga%20soo%20jawaab.',
+      '_blank'
+    );
+    return;
+  }
 
-    if (course.comingSoon) {
-      setSelectedCourse(course);
-      setModalMessage('Course kan wali waxa ku socda shaqo');
-      setIsModalOpen(true);
-    } else {
-      setSelectedCourse(course);
-      setIsEnrollModalOpen(true);
-    }
-  };
+  if (course.title === 'One to One Coaching') {
+    window.open(
+      'https://wa.me/252634734075?text=Waan%20salaamanahay!%20Waxaan%20xiiseynayaa%20inaan%20iska%20diiwaangeliyo%20%22One%20to%20One%20Coaching%22.%20Fadlan%20iiga%20soo%20jawaab.',
+      '_blank'
+    );
+    return;
+  }
+
+  if (course.comingSoon) {
+    setSelectedCourse(course);
+    setModalMessage('Course kan wali waxa ku socda shaqo');
+    setIsModalOpen(true);
+  } else {
+    setSelectedCourse(course);
+    setIsEnrollModalOpen(true);
+  }
+};
+
 
   const closeEnrollModal = () => {
     setIsEnrollModalOpen(false);

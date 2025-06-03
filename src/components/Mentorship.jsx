@@ -89,7 +89,7 @@ const Mentorship = () => {
           {/* CTA Button */}
           <div className="flex justify-center items-center gap-4 flex-wrap">
             <a
-              href="https://t.me/rejocommunity"
+              href="https://wa.me/252634734075"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition duration-300 inline-block"
