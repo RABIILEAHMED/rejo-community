@@ -40,6 +40,7 @@ const courses = [
     iconBg: 'bg-purple-500',
     price: '$59.99',
     curriculum: [
+      'Fahamka IRL & ERL concepts ',
       'Fahamka OHLC & OLHC scenario ',
       'Power of three strategy ',
       'Timing and execution',
