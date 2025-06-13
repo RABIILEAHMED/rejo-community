@@ -4,7 +4,7 @@ import paymentData from "../data/paymentData.json";
 const books = [
   { title: '📘 Institutional Order flow', file: '/pdfs/OrderFlow.pdf' },
   { title: '📗 IRL and IRL Range LQ ', file: '/pdfs/IRL and ERL.pdf' },
-  { title: '📕 Trading In The Zone_ Mark', file: '/pdfs/Trading_int_zone.pdf' },
+  { title: '📕 Trading In The Zone_ Mark', file: '/pdfs/Trading int zone.pdf' },
   { title: '📙 Financial eBook Dawan ', file: '/pdfs/Dawan.pdf' },
   { title: '📒 JavaScript Mastery', file: '/pdfs/js-mastery.pdf' },
   { title: '📓 Next.js Guide', file: '/pdfs/nextjs-guide.pdf' },
