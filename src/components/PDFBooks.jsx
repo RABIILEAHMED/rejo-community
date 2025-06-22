@@ -58,7 +58,7 @@ const PDFBooks = () => {
     const bookKey = `${sanitizedPhone}_${selectedBook.title}`;
 
     if (!paidUsers.includes(sanitizedPhone)) {
-      setError('Lambarkaagu ma diwaan gashana | register for free then download.');
+      setError('Lambarkaagu ma diwaan gashana | ee adeegso 0000 ama la xidhiidh registration team ka ');
       return;
     }
 
