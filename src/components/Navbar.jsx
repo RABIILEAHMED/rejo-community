@@ -76,6 +76,12 @@ const Navbar = () => {
             <li><button onClick={() => navigate('/')} className="hover:text-yellow-500">Home</button></li>
           )}
           <li><button onClick={() => navigate('/updates')} className="hover:text-yellow-500">Updates</button></li>
+          <li>
+  <button onClick={() => navigate('/changeyourlife')} className="hover:text-yellow-500">
+    Change Your Life
+  </button>
+</li>
+
         </ul>
 
         {/* Right Side */}
@@ -135,6 +141,12 @@ const Navbar = () => {
                 <li><button onClick={() => { navigate('/'); setIsOpen(false); }} className="hover:text-yellow-500">Home</button></li>
               )}
               <li><button onClick={() => { navigate('/updates'); setIsOpen(false); }} className="hover:text-yellow-500">Updates</button></li>
+              <li>
+  <button onClick={() => navigate('/changeyourlife')} className="hover:text-yellow-500">
+    Change Your Life
+  </button>
+</li>
+
             </ul>
 
             <div className="flex justify-center mt-4 space-x-6 text-xl text-gray-700 dark:text-gray-300">
