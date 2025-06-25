@@ -10,7 +10,7 @@ import Mentorship from "./components/Mentorship";
 import PDFBooks from "./components/PDFBooks";
 import Footer from "./components/Footer";
 import StoriesSection from "./components/DailySignalsSection";
-import Updates from './components/Updates';
+// import Updates from './components/Updates';
 import ChangeYourLifeNow from './components/ChangeYourLifeNow';
 
 // Home Page Layout
@@ -36,7 +36,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/updates" element={<Updates />} />
+        {/* <Route path="/updates" element={<Updates />} /> */}
         <Route path="/changeyourlife" element={<ChangeYourLifeNow />} />
       </Routes>
     </Router>

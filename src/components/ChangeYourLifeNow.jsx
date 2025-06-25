@@ -3,38 +3,45 @@ import React, { useState } from 'react';
 const fakePosts = [
   {
     id: 1,
-    title: 'Maskaxda Dhis Ka Hor Maalka',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    content: 'Haddii maskaxdaada aysan diyaar ahayn, maalgashi iyo lacag midna wax kuu tari maayaan.',
-    category: 'Mindset'
+    title: 'Sheekh mustafa xaji ismaacil',
+    videoUrl: 'https://www.youtube.com/embed/TBaNr3eORWw?start=971',
+    content: 'Isbadal samee 2025 ✍️ ka faaideyso waqtiga ⏳ Dhiirigalin | Sheekh Mustafe |',
+    category: 'Motivation + wacdi '
   },
   {
     id: 2,
-    title: 'Noloshaada Bedel Maanta',
-    videoUrl: 'https://www.youtube.com/embed/2g811Eo7K8U',
-    content: 'Isbedelka ugu muhiimsan wuxuu bilaabmaa marka aad go’aan adag qaadato.',
-    category: 'Motivation'
+    title: 'saalim omer | naf ogaal',
+    videoUrl: 'https://www.youtube.com/embed/8PK6LOWEn98',
+    content: 'Qof aan 100% wax kayar ku qancayn iyo xalka uu kaga bixi karo.',
+    category: 'Mindset'
   },
   {
     id: 3,
-    title: 'Xirfaduhu Waa Furaha Mustaqbalka',
-    videoUrl: 'https://www.youtube.com/embed/oHg5SJYRHA0',
-    content: 'Haddii aad baratid xirfad cusub, waxaad gacanta ku haysaa fure cusub oo mustaqbalkaaga furaya.',
-    category: 'Skills'
+    title: 'Fikradaha xaliye ali',
+    videoUrl: 'https://www.youtube.com/embed/videoseries?list=PLsBT1fk6KIR7uGgnkfGC-QvThPqwBsQuj',
+    content: 'Maxaa Gadaal u dhigaya Noloshaada?',
+    category: 'Mindset'
   },
   {
     id: 4,
-    title: 'Ha Sugina Wakhti Kuu Fiican',
-    videoUrl: 'https://www.youtube.com/embed/IUN664s7N-c',
-    content: 'Hadda bilow wax kasta oo aad rabto – wakhti fiican ma yimaado laakin adiga ayaa abuurta.',
-    category: 'Motivation'
+    title: 'Saalim omer',
+    videoUrl: 'https://www.youtube.com/embed/i9DuVh-HzdM',
+    content: 'Sidee wax u Joogteeyaa? EP 12 | The Psychology of Consistency',
+    category: 'Mindset'
   },
   {
     id: 5,
-    title: 'Noloshu Waa Dagaal Maskaxeed',
-    videoUrl: 'https://www.youtube.com/embed/jfKfPfyJRdk',
-    content: 'Maskax adag oo aan ka niyad jabin ayaa kuu sahli karta guul joogto ah.',
-    category: 'Mindset'
+    title: 'Rabiile ahmed',
+    videoUrl: 'https://www.youtube.com/embed/vYeTSsQHYcc',
+    content: 'XIRFADAHAN MID KEE BARAN LAHAYD',
+    category: 'Skills'
+  },
+  {
+    id: 6,
+    title: 'Sheekh khadar badeed ',
+    videoUrl: 'https://www.youtube.com/embed/QtSGoJa1c4M?start=218',
+    content: 'DHALIN YARADA IYO GUULAYSIGA || MADARI PODCAST',
+    category: 'Skills'
   }
 ];
 
@@ -43,11 +50,11 @@ const shuffleArray = (array) => {
 };
 
 const ChangeYourLifeNow = () => {
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [selectedCategory, setSelectedCategory] = React.useState('All');
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const [posts, setPosts] = React.useState(fakePosts);
-  const [showNotice, setShowNotice] = useState(true);  // had iyo jeer markasta page load
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [posts, setPosts] = useState(fakePosts);
+  const [showNotice, setShowNotice] = useState(true);
 
   const postsPerPage = 3;
   const categories = ['All', 'Mindset', 'Skills', 'Motivation'];
@@ -77,15 +84,14 @@ const ChangeYourLifeNow = () => {
     <section id="changeyourlife" className="px-6 py-10 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       <h2 className="text-3xl font-bold text-center mb-6 text-yellow-500">Change Your Life Now</h2>
 
-      {/* Fariin Ogaysiis - Had iyo jeer muuqata marka page load, la qariyo button riix */}
       {showNotice && (
         <div className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100 p-6 rounded-xl shadow mb-8 text-center">
           <p className="text-lg font-semibold mb-3">
-            Haddii aad tahay dhalinyaro misna rabto isbadal dhab ah & la jaanqaad dhalinyaro hadda bilaabaya safarka isbedelka… <br />
+           Halkan waxaan kugu soo uruuriyey muuqaalo iyo talooyin kaa caawinaya inaad noqoto qofka ugu fiican ee aad noqon karto hadii aad dabaqdo saaxiib . <br />
             <span className="text-yellow-600 dark:text-yellow-300">Halkan kaalay saaxiib!</span>
           </p>
           <a
-            href="https://t.me/rejocommunity"
+            href="https://t.me/+x2NZ91lFAjQ2OTJk"
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleCloseNotice}
@@ -103,7 +109,6 @@ const ChangeYourLifeNow = () => {
         </div>
       )}
 
-      {/* Controls */}
       <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
         <input
           type="text"
@@ -149,9 +154,9 @@ const ChangeYourLifeNow = () => {
         currentPosts.map(post => (
           <div key={post.id} className="mb-12 bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-md">
             <h3 className="text-xl font-semibold text-yellow-500 mb-4">{post.title}</h3>
-            <div className="aspect-w-16 aspect-h-9 mb-4">
+            <div className="mb-4">
               <iframe
-                className="w-full rounded-md"
+                className="w-full h-60 rounded-md object-cover border border-yellow-400 shadow-xl"
                 src={post.videoUrl}
                 allowFullScreen
                 title={post.title}

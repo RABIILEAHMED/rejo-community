@@ -31,7 +31,7 @@ const Navbar = () => {
   const handleNotificationClick = () => {
     setMessageClicked(true);
     setNewMessage(false);  // Mark newMessage as read
-    navigate('/updates');
+    navigate('/');
     setIsOpen(false);
   };
 
@@ -75,9 +75,8 @@ const Navbar = () => {
           ) : (
             <li><button onClick={() => navigate('/')} className="hover:text-yellow-500">Home</button></li>
           )}
-          <li><button onClick={() => navigate('/updates')} className="hover:text-yellow-500">Updates</button></li>
-          <li>
-  <button onClick={() => navigate('/changeyourlife')} className="hover:text-yellow-500">
+          {/* <li><button onClick={() => navigate('/updates')} className="hover:text-yellow-500">Updates</button></li> */}
+          <li><button onClick={() => navigate('/changeyourlife')} className="hover:text-yellow-500">
     Change Your Life
   </button>
 </li>
@@ -140,9 +139,8 @@ const Navbar = () => {
               ) : (
                 <li><button onClick={() => { navigate('/'); setIsOpen(false); }} className="hover:text-yellow-500">Home</button></li>
               )}
-              <li><button onClick={() => { navigate('/updates'); setIsOpen(false); }} className="hover:text-yellow-500">Updates</button></li>
-              <li>
-  <button onClick={() => navigate('/changeyourlife')} className="hover:text-yellow-500">
+              {/* <li><button onClick={() => { navigate('/updates'); setIsOpen(false); }} className="hover:text-yellow-500">Updates</button></li> */}
+              <li><button onClick={() => navigate('/changeyourlife')} className="hover:text-yellow-500">
     Change Your Life
   </button>
 </li>
