@@ -140,7 +140,14 @@ const Navbar = () => {
                 <li><button onClick={() => { navigate('/'); setIsOpen(false); }} className="hover:text-yellow-500">Home</button></li>
               )}
               {/* <li><button onClick={() => { navigate('/updates'); setIsOpen(false); }} className="hover:text-yellow-500">Updates</button></li> */}
-              <li><button onClick={() => navigate('/changeyourlife')} className="hover:text-yellow-500">
+              <li>
+  <button
+    onClick={() => {
+      navigate('/changeyourlife');
+      setIsOpen(false);
+    }}
+    className="hover:text-yellow-500"
+  >
     Change Your Life
   </button>
 </li>

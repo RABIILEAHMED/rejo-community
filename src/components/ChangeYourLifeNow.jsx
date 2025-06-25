@@ -57,7 +57,7 @@ const ChangeYourLifeNow = () => {
   const [showNotice, setShowNotice] = useState(true);
 
   const postsPerPage = 3;
-  const categories = ['All', 'Mindset', 'Skills', 'Motivation'];
+  const categories = ['All', 'Mindset', 'Skills'];
 
   const filteredPosts = posts.filter(post => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
