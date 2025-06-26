@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import paymentData from "../data/paymentData.json";
+import ChangeLifeCard from "./ChangeLifeCard";
 
 const books = [
   { title: '📘 Institutional Order flow', file: '/pdfs/OrderFlow.pdf' },
@@ -202,6 +203,7 @@ const PDFBooks = () => {
           </div>
         </div>
       )}
+       <ChangeLifeCard />
     </section>
   );
 };
