@@ -13,8 +13,11 @@ const ChangeLifeCard = () => {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [charIndex, setCharIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
+    if (isPaused) return;
+
     const currentMessage = messages[currentMessageIndex];
 
     if (charIndex < currentMessage.length) {
@@ -32,7 +35,7 @@ const ChangeLifeCard = () => {
     }, 5000);
 
     return () => clearTimeout(switchTimeout);
-  }, [charIndex, currentMessageIndex, messages]);
+  }, [charIndex, currentMessageIndex, messages, isPaused]);
 
   const goToChangeLife = () => {
     navigate('/changeyourlife');
@@ -51,7 +54,7 @@ const ChangeLifeCard = () => {
         ✨ Isbeddel muuqda 3 bilood gudahood!
       </div>
 
-      {/* Ribbon Bottom Right */}
+      {/* Ribbon Bottom Right – Always visible */}
       <div className="absolute bottom-0 right-0 bg-green-600 text-white text-xs md:text-sm px-3 py-1 rounded-tl-2xl font-bold shadow-lg z-10">
         🚀 Maanta nala bilow is badal ka
       </div>
@@ -67,14 +70,18 @@ const ChangeLifeCard = () => {
 
       <h3 className="text-2xl md:text-4xl font-extrabold mb-4">Change Your Life Now</h3>
 
-      {/* Typing Animation Text (without typing cursor) */}
-      <p className="text-lg md:text-2xl leading-relaxed h-28 md:h-24 mb-8 whitespace-pre-line font-medium md:font-semibold">
+      {/* Typing Animation Text with pause on hover */}
+      <p
+        className="text-lg md:text-2xl leading-relaxed h-28 md:h-24 mb-10 whitespace-pre-line font-medium md:font-semibold cursor-default"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
         {displayText}
       </p>
 
       <button
         onClick={goToChangeLife}
-        className="bg-white text-yellow-700 font-bold px-6 py-3 rounded-full shadow-md hover:bg-yellow-100 transition duration-300 text-base md:text-lg"
+        className="mb-4 bg-white text-yellow-700 font-bold px-6 py-3 rounded-full shadow-md hover:bg-yellow-100 transition duration-300 text-base md:text-lg z-20 relative"
       >
         💥 Ku Dhiirro
       </button>
