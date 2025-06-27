@@ -162,16 +162,16 @@ const Navbar = () => {
       </nav>
 
       {/* Floating WhatsApp Call Me Button */}
-      <a
-        href="https://wa.me/252634734075?text=Asc%2C%20waxaan%20rabay%20inan%20la%20soo%20xariiro"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-24 right-6 z-50 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-lg flex items-center space-x-2 animate-bounce transition-all duration-300"
-        title="Call me on WhatsApp"
-      >
-        <FaPhoneAlt className="text-xl" />
-        <span className="font-semibold">Call Me</span>
-      </a>
+   <a
+  href="https://wa.me/252634734075?text=Asc%2C%20waxaan%20rabay%20inan%20la%20soo%20xariiro"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-lg flex items-center space-x-2 animate-bounce transition-all duration-300"
+  title="Call me on WhatsApp"
+>
+  <FaPhoneAlt className="text-xl" />
+  <span className="font-semibold">Call Me</span>
+</a>
 
       {/* Toast Notification */}
       {showToast && (
