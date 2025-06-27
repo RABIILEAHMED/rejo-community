@@ -47,14 +47,14 @@ const FreeStrategyCard = () => {
         </div>
 
         {/* Telegram Button */}
-        <a
+        {/* <a
           href={strategy.telegramLink}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-full transition duration-300 shadow-lg"
         >
           🚀 Hadii Aad Diyaar U Tahay Ila Trade-garayso – Telegram
-        </a>
+        </a> */}
       </motion.div>
 
       {/* Modal */}

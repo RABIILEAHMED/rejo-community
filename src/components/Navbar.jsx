@@ -9,6 +9,7 @@ const Navbar = () => {
   const [messageClicked, setMessageClicked] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [showCallMe, setShowCallMe] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,11 +21,23 @@ const Navbar = () => {
   }, [darkMode]);
 
   useEffect(() => {
+    let timeoutId;
     const handleScroll = () => {
-      setScrolling(window.scrollY > 50);
+      const isScrolled = window.scrollY > 50;
+      setScrolling(isScrolled);
+      if (isScrolled) {
+        // Delay 1s before showing call me button
+        timeoutId = setTimeout(() => setShowCallMe(true), 1000);
+      } else {
+        clearTimeout(timeoutId);
+        setShowCallMe(false);
+      }
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleNotificationClick = () => {
@@ -161,17 +174,22 @@ const Navbar = () => {
         )}
       </nav>
 
-      {/* Floating WhatsApp Call Me Button */}
-   <a
-  href="https://wa.me/252634734075?text=Asc%2C%20waxaan%20rabay%20inan%20la%20soo%20xariiro"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-lg flex items-center space-x-2 animate-bounce transition-all duration-300"
-  title="Call me on WhatsApp"
->
-  <FaPhoneAlt className="text-xl" />
-  <span className="font-semibold">Call Me</span>
-</a>
+      {/* Floating WhatsApp Call Me Button with fade effect */}
+      <a
+        href="https://wa.me/252634734075?text=Asc%2C%20waxaan%20rabay%20inan%20la%20soo%20xariiro"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`
+          fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 shadow-lg
+          transition-opacity transition-transform duration-500
+          ${showCallMe ? 'opacity-100 scale-90' : 'opacity-0 scale-100 pointer-events-none'}
+        `}
+        title="Call me on WhatsApp"
+        style={{ transitionDelay: showCallMe ? '1000ms' : '0ms' }}
+      >
+        <FaPhoneAlt className="text-lg md:text-xl" />
+        <span className="font-semibold text-sm md:text-base">Call Me</span>
+      </a>
 
       {/* Toast Notification */}
       {showToast && (
