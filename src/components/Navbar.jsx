@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { FaBell, FaDiscord, FaTelegramPlane, FaYoutube } from 'react-icons/fa';
+import { FaBell, FaDiscord, FaTelegramPlane, FaYoutube, FaPhoneAlt } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
-  const [newMessage, setNewMessage] = useState(true);  // Halkan ka dhig true si uu alert u muuqdo marka page la furo
+  const [newMessage, setNewMessage] = useState(true);
   const [messageClicked, setMessageClicked] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -15,7 +15,6 @@ const Navbar = () => {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
-
     const toastTimer = setTimeout(() => setShowToast(true), 5000);
     return () => clearTimeout(toastTimer);
   }, [darkMode]);
@@ -30,7 +29,7 @@ const Navbar = () => {
 
   const handleNotificationClick = () => {
     setMessageClicked(true);
-    setNewMessage(false);  // Mark newMessage as read
+    setNewMessage(false);
     navigate('/');
     setIsOpen(false);
   };
@@ -75,17 +74,12 @@ const Navbar = () => {
           ) : (
             <li><button onClick={() => navigate('/')} className="hover:text-yellow-500">Home</button></li>
           )}
-          {/* <li><button onClick={() => navigate('/updates')} className="hover:text-yellow-500">Updates</button></li> */}
-          <li><button onClick={() => navigate('/changeyourlife')} className="hover:text-yellow-500">
-    Change Your Life
-  </button>
-</li>
-
+          <li><button onClick={() => navigate('/changeyourlife')} className="hover:text-yellow-500">Change Your Life</button></li>
         </ul>
 
         {/* Right Side */}
         <div className="flex items-center space-x-4">
-          {/* Social Icons (Desktop) */}
+          {/* Desktop Icons */}
           <div className="hidden md:flex space-x-4 text-xl text-gray-700 dark:text-gray-300">
             <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
               <FaDiscord />
@@ -139,19 +133,17 @@ const Navbar = () => {
               ) : (
                 <li><button onClick={() => { navigate('/'); setIsOpen(false); }} className="hover:text-yellow-500">Home</button></li>
               )}
-              {/* <li><button onClick={() => { navigate('/updates'); setIsOpen(false); }} className="hover:text-yellow-500">Updates</button></li> */}
               <li>
-  <button
-    onClick={() => {
-      navigate('/changeyourlife');
-      setIsOpen(false);
-    }}
-    className="hover:text-yellow-500"
-  >
-    Change Your Life
-  </button>
-</li>
-
+                <button
+                  onClick={() => {
+                    navigate('/changeyourlife');
+                    setIsOpen(false);
+                  }}
+                  className="hover:text-yellow-500"
+                >
+                  Change Your Life
+                </button>
+              </li>
             </ul>
 
             <div className="flex justify-center mt-4 space-x-6 text-xl text-gray-700 dark:text-gray-300">
@@ -168,6 +160,18 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+
+      {/* Floating WhatsApp Call Me Button */}
+      <a
+        href="https://wa.me/252634734075?text=Asc%2C%20waxaan%20rabay%20inan%20la%20soo%20xariiro"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-24 right-6 z-50 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-lg flex items-center space-x-2 animate-bounce transition-all duration-300"
+        title="Call me on WhatsApp"
+      >
+        <FaPhoneAlt className="text-xl" />
+        <span className="font-semibold">Call Me</span>
+      </a>
 
       {/* Toast Notification */}
       {showToast && (
