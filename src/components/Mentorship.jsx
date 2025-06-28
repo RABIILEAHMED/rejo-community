@@ -46,12 +46,7 @@ const Mentorship = () => {
   const [scrollX, setScrollX] = useState(0);
 
   const launchConfetti = () => {
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-    });
-
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
     const audio = new Audio('/sounds/celebration.mp3');
     audio.play();
   };
@@ -66,7 +61,7 @@ const Mentorship = () => {
   return (
     <section id="mentorship" className="bg-gray-100 dark:bg-gray-900 py-16 px-6 text-center overflow-hidden">
       <div className="max-w-6xl mx-auto">
-        {/* Heading & Info */}
+        {/* Mentorship Program Info */}
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 bg-[length:300%_300%] animate-gradient-move drop-shadow-md dark:drop-shadow-lg mb-6 transition-all duration-500 ease-in-out hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.8)] cursor-pointer">
             Barnaamijka Mentorship-ka
@@ -102,7 +97,7 @@ const Mentorship = () => {
           </div>
         </div>
 
-        {/* Filter buttons */}
+        {/* Certificates Section */}
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-8">
           Professional Certifications
         </h2>
@@ -123,7 +118,6 @@ const Mentorship = () => {
           ))}
         </div>
 
-        {/* Certificates */}
         <div className="relative">
           <motion.div
             className="flex gap-6 w-max transition-transform duration-500 ease-in-out"
@@ -133,7 +127,7 @@ const Mentorship = () => {
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.05 }}
-                className="relative w-[220px] sm:w-[300px] bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden cursor-pointer"
+                className="relative min-w-[300px] max-w-xs bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden cursor-pointer"
                 onClick={() => {
                   setSelectedImage(cert.image);
                   launchConfetti();
@@ -142,7 +136,7 @@ const Mentorship = () => {
                 <img
                   src={cert.image}
                   alt={cert.title}
-                  className="w-full h-40 sm:h-56 object-cover"
+                  className="w-full h-56 object-cover"
                 />
               </motion.div>
             ))}
@@ -167,85 +161,45 @@ const Mentorship = () => {
           </div>
         </div>
 
-        {/* Testimonials */}
-        <div className="mt-16 bg-gradient-to-r from-yellow-400 to-pink-500 text-white rounded-lg p-8">
-          <h3 className="text-2xl font-bold mb-4">"I became a skilled trader in just 3 months!"</h3>
-          <p className="mb-4">- Ahmed, A professional Forex trader who turned his passion into a full-time career with our mentorship program.</p>
-          <a
-            href="https://t.me/rejocommunity"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-gray-800 font-semibold px-8 py-3 rounded-xl shadow-md hover:bg-yellow-600 transition duration-300 inline-block"
+        {/* Image Modal */}
+        {selectedImage && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+            onClick={() => setSelectedImage(null)}
           >
-            Join Now and Start Your Journey
-          </a>
-        </div>
-
-        <div className="mt-16 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg p-8">
-          <h3 className="text-2xl font-bold mb-4">"Live trading and signals changed the way I see the market."</h3>
-          <p className="mb-4">- Fatima, After joining the mentorship, I gained confidence in my trades and significantly improved my profitability.</p>
-          <a
-            href="https://t.me/rejocommunity"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-gray-800 font-semibold px-8 py-3 rounded-xl shadow-md hover:bg-green-600 transition duration-300 inline-block"
-          >
-            Join Us and Learn from the Best
-          </a>
-        </div>
-
-        <div className="mt-16 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg p-8">
-          <h3 className="text-2xl font-bold mb-4">"The mentorship was eye-opening, I now trade with a system."</h3>
-          <p className="mb-4">- Yusuf, The mentorship program helped me create a trading system that consistently brings profits.</p>
-          <a
-            href="https://t.me/rejocommunity"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-gray-800 font-semibold px-8 py-3 rounded-xl shadow-md hover:bg-purple-600 transition duration-300 inline-block"
-          >
-            Start Your Trading Success Today
-          </a>
-        </div>
-      </div>
-
-      {/* Certificate Modal */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-          onClick={() => setSelectedImage(null)}
-        >
-          <img
-            src={selectedImage}
-            alt="Zoomed Certificate"
-            className="max-w-4xl max-h-[90vh] rounded-lg shadow-xl"
-          />
-        </div>
-      )}
-
-      {/* Video Modal */}
-      {selectedVideo && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center"
-          onClick={() => setSelectedVideo(null)}
-        >
-          <div className="relative w-[90%] max-w-3xl aspect-video">
-            <iframe
-              src={selectedVideo}
-              title="Mentorship Video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full rounded-xl shadow-2xl"
-            ></iframe>
-            <button
-              onClick={() => setSelectedVideo(null)}
-              className="absolute top-2 right-2 bg-white text-black rounded-full p-2 shadow-md hover:bg-red-600 hover:text-white transition"
-            >
-              ❌
-            </button>
+            <img
+              src={selectedImage}
+              alt="Zoomed Certificate"
+              className="w-[95%] max-w-2xl max-h-[90vh] object-contain rounded-lg shadow-xl"
+            />
           </div>
-        </div>
-      )}
+        )}
+
+        {/* Video Modal */}
+        {selectedVideo && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center"
+            onClick={() => setSelectedVideo(null)}
+          >
+            <div className="relative w-[90%] max-w-3xl aspect-video">
+              <iframe
+                src={selectedVideo}
+                title="Mentorship Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full rounded-xl shadow-2xl"
+              ></iframe>
+              <button
+                onClick={() => setSelectedVideo(null)}
+                className="absolute top-2 right-2 bg-white text-black rounded-full p-2 shadow-md hover:bg-red-600 hover:text-white transition"
+              >
+                ❌
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </section>
   );
 };
