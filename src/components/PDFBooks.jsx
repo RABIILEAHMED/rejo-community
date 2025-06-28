@@ -3,32 +3,45 @@ import paymentData from "../data/paymentData.json";
 import ChangeLifeCard from "./ChangeLifeCard";
 import FreeStrategyCard from "./FreeStrategyCard";
 
-const books = [
+const englishBooks = [
   { title: '📘 Institutional Order flow', file: '/pdfs/OrderFlow.pdf' },
   { title: '📗 IRL and IRL Range LQ ', file: '/pdfs/IRL and ERL.pdf' },
   { title: '📕 Trading In The Zone_ Mark', file: '/pdfs/Trading int zone.pdf' },
+  // { title: '📒 JavaScript Mastery', file: '/pdfs/js-mastery.pdf' },
+  // { title: '📓 Next.js Guide', file: '/pdfs/nextjs-guide.pdf' },
+];
+
+const somaliBooks = [
   { title: '📙 Financial eBook Dawan ', file: '/pdfs/Dawan.pdf' },
-  { title: '📒 JavaScript Mastery', file: '/pdfs/js-mastery.pdf' },
-  { title: '📓 Next.js Guide', file: '/pdfs/nextjs-guide.pdf' },
+  // { title: '📗 Fikradda Maalgashiga', file: '/pdfs/fikradda-maalgashiga.pdf' },
+  // { title: '📕 Maamulka Maskaxda', file: '/pdfs/maamulka-maskaxda.pdf' },
 ];
 
 const ITEMS_PER_PAGE = 3;
 
 const PDFBooks = () => {
+  const [language, setLanguage] = useState('english');
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBook, setSelectedBook] = useState(null);
   const [phone, setPhone] = useState('');
   const [accessGranted, setAccessGranted] = useState(false);
   const [error, setError] = useState('');
+  const [requestingQuickDownload, setRequestingQuickDownload] = useState(false);
   const [downloads, setDownloads] = useState(() => {
     const saved = localStorage.getItem('downloads');
     return saved ? JSON.parse(saved) : {};
   });
-  const [requestingQuickDownload, setRequestingQuickDownload] = useState(false);
 
-  const totalPages = Math.ceil(books.length / ITEMS_PER_PAGE);
+  const books = language === 'english' ? englishBooks : somaliBooks;
+
+  const filteredBooks = books.filter(book =>
+    book.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredBooks.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentBooks = books.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentBooks = filteredBooks.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const instantDownloadTitles = [
     '📘 Institutional Order flow',
@@ -60,7 +73,7 @@ const PDFBooks = () => {
     const bookKey = `${sanitizedPhone}_${selectedBook.title}`;
 
     if (!paidUsers.includes(sanitizedPhone)) {
-      setError('Lambarkaagu ma diwaan gashana | ee adeegso 0000 ama la xidhiidh registration team ka ');
+      setError('Lambarkaagu ma diwaan gashana | adeegso 0000 ama la xiriir registration team ka');
       return;
     }
 
@@ -97,15 +110,52 @@ const PDFBooks = () => {
 
   return (
     <section id="pdfbooks" className="bg-white dark:bg-gray-900 py-16 px-6 text-center">
-      <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">PDF Books</h2>
-      <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto mb-8">
-        Halkan waxaad ka heli kartaa buugaag tayo leh oo la xiriira horumarinta, trading, iyo waxbarasho guud.
-      </p>
+      <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">PDF Books</h2>
 
+      {/* Language Switch */}
+      <div className="flex justify-center gap-4 mb-6">
+        <button
+          onClick={() => {
+            setLanguage("english");
+            setCurrentPage(1);
+            setSearchTerm('');
+          }}
+          className={`px-4 py-2 rounded-lg ${language === "english" ? "bg-yellow-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"}`}
+        >
+          English Books
+        </button>
+        <button
+          onClick={() => {
+            setLanguage("somali");
+            setCurrentPage(1);
+            setSearchTerm('');
+          }}
+          className={`px-4 py-2 rounded-lg ${language === "somali" ? "bg-yellow-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"}`}
+        >
+          Somali Books
+        </button>
+      </div>
+
+      {/* Search Bar */}
+      <div className="max-w-md mx-auto mb-6">
+        <input
+          type="text"
+          placeholder="Raadi buug..."
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1);
+          }}
+          className="w-full p-3 rounded-lg border border-gray-300 dark:bg-gray-700 dark:text-white"
+        />
+      </div>
+
+      {/* Book Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {currentBooks.map((book, index) => (
           <div
             key={index}
+            title={book.title}
             className="bg-yellow-500 hover:bg-yellow-600 text-white py-3 px-5 rounded-lg shadow text-lg cursor-pointer transition"
             onClick={() => handlePreview(book)}
           >
@@ -204,8 +254,9 @@ const PDFBooks = () => {
           </div>
         </div>
       )}
-       <ChangeLifeCard />
-       <FreeStrategyCard />
+
+      <ChangeLifeCard />
+      <FreeStrategyCard />
     </section>
   );
 };
