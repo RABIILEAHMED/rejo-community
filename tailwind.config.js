@@ -55,11 +55,20 @@ module.exports = {
             transform: 'scale(1)',
           },
         },
+        pulseGlow: {
+          '0%, 100%': {
+            boxShadow: '0 0 10px 2px #ff0080, 0 0 20px 6px #7928ca',
+          },
+          '50%': {
+            boxShadow: '0 0 10px 2px #00ffe7, 0 0 20px 6px #007cf0',
+          },
+        },
       },
       animation: {
         'gradient-move': 'gradientMove 4s ease infinite',
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
         'bounce-in': 'bounceIn 0.6s ease-out forwards',
+        'pulseGlow': 'pulseGlow 2s ease-in-out infinite',
       },
     },
   },
