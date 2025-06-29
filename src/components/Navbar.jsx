@@ -27,7 +27,7 @@ const Navbar = () => {
       setScrolling(isScrolled);
       if (isScrolled) {
         // Delay 1s before showing call me button
-        timeoutId = setTimeout(() => setShowCallMe(true), 1000);
+        timeoutId = setTimeout(() => setShowCallMe(true), 20000);
       } else {
         clearTimeout(timeoutId);
         setShowCallMe(false);

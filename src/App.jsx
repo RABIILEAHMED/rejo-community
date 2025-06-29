@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import ReactGA from "react-ga4";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -10,10 +11,13 @@ import Mentorship from "./components/Mentorship";
 import PDFBooks from "./components/PDFBooks";
 import Footer from "./components/Footer";
 import StoriesSection from "./components/DailySignalsSection";
-// import Updates from './components/Updates';
 import ChangeYourLifeNow from './components/ChangeYourLifeNow';
+import AnalyticsTracker from "./components/AnalyticsTracker";
+import WelcomeModal from "./components/WelcomeModal";
 
-// Home Page Layout
+// ✅ Initialize GA4 once
+ReactGA.initialize("G-63KSNK7E9X");
+
 const Home = () => (
   <>
     <Helmet>
@@ -34,9 +38,10 @@ function App() {
   return (
     <Router>
       <Navbar />
+       <WelcomeModal /> {/* ✅ Modal-ka halkan ku dar */}
+      <AnalyticsTracker />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/updates" element={<Updates />} /> */}
         <Route path="/changeyourlife" element={<ChangeYourLifeNow />} />
       </Routes>
     </Router>
