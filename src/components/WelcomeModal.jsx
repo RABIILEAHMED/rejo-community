@@ -5,20 +5,39 @@ import messageSound from "../assets/message.wav"; // ✅ Codka
 
 const WelcomeModal = () => {
   const [showModal, setShowModal] = useState(false);
+  const [triggered, setTriggered] = useState(false); // ✅ In modal hal mar kaliya furmo session-kaan
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowModal(true);
-      playSound(); // ✅ Codka ku ciyaar marka modal soo baxo
-    }, 6000);
+    const handleUserAction = () => {
+      if (!triggered) {
+        setShowModal(true);
+        playSound(); // ✅ ciyaar codka
+        setTriggered(true); // si aan modal kale uusan u furmin ilaa refresh la sameeyo
+        removeListeners();
+      }
+    };
 
-    return () => clearTimeout(timer);
-  }, []);
+    const addListeners = () => {
+      window.addEventListener("scroll", handleUserAction);
+      window.addEventListener("click", handleUserAction);
+    };
+
+    const removeListeners = () => {
+      window.removeEventListener("scroll", handleUserAction);
+      window.removeEventListener("click", handleUserAction);
+    };
+
+    addListeners();
+
+    return () => removeListeners();
+  }, [triggered]);
 
   // ✅ Function codka u ciyaaraya
   const playSound = () => {
     const audio = new Audio(messageSound);
-    audio.play();
+    audio.play().catch((error) => {
+      console.warn("Codka lama ciyaari karo:", error);
+    });
   };
 
   const closeModal = () => setShowModal(false);
@@ -66,7 +85,7 @@ const WelcomeModal = () => {
                 rel="noopener noreferrer"
                 className="mt-2 inline-block bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition"
               >
-                La xidhiidh Rabiile Whatsapp
+                La xidhiidh Rabiile 
               </a>
             </div>
           </motion.div>
