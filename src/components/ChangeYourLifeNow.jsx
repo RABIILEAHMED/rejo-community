@@ -42,6 +42,13 @@ const fakePosts = [
     videoUrl: 'https://www.youtube.com/embed/QtSGoJa1c4M?start=218',
     content: 'DHALIN YARADA IYO GUULAYSIGA || MADARI PODCAST',
     category: 'Skills'
+  },
+  {
+    id: 6,
+    title: 'Sheekh khadar badeed ',
+    videoUrl: 'https://www.youtube.com/embed/Z8r0P_MgHMQ?start=365',
+    content: 'DHALIN YARADA IYO GUULAYSIGA || MADARI PODCAST',
+    category: 'Skills'
   }
 ];
 
@@ -82,7 +89,7 @@ const ChangeYourLifeNow = () => {
 
   return (
     <section id="changeyourlife" className="px-6 py-10 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-      <h2 className="text-3xl font-bold text-center mb-6 text-yellow-500">Change Your Life Now</h2>
+      <h2 className="text-3xl font-bold text-center mb-6 text-yellow-500">Life Changing Lessons </h2>
 
       {showNotice && (
         <div className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100 p-6 rounded-xl shadow mb-8 text-center">

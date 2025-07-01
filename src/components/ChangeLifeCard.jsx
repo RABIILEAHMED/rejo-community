@@ -68,7 +68,7 @@ const ChangeLifeCard = () => {
         💥
       </motion.div>
 
-      <h3 className="text-2xl md:text-4xl font-extrabold mb-4">Change Your Life Now</h3>
+      <h3 className="text-2xl md:text-4xl font-extrabold mb-4">Life Changing Lessons</h3>
 
       {/* Typing Animation Text with pause on hover */}
       <p
