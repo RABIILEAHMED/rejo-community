@@ -45,10 +45,10 @@ const fakePosts = [
   },
   {
     id: 6,
-    title: 'Sheekh khadar badeed ',
+    title: 'Sheekh Mustafe Xaaji  ',
     videoUrl: 'https://www.youtube.com/embed/Z8r0P_MgHMQ?start=365',
-    content: 'DHALIN YARADA IYO GUULAYSIGA || MADARI PODCAST',
-    category: 'Skills'
+    content: 'DHALIN YARADA IYO GUULAYSIGA || MAASLIM MEDIA ',
+    category: 'MOTIVATOIN'
   }
 ];
 
