@@ -14,6 +14,7 @@ import StoriesSection from "./components/DailySignalsSection";
 import ChangeYourLifeNow from './components/ChangeYourLifeNow';
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import WelcomeModal from "./components/WelcomeModal";
+import NotionJournal from './components/NotionJournal';
 
 // ✅ Initialize GA4 once
 ReactGA.initialize("G-63KSNK7E9X");
@@ -30,6 +31,7 @@ const Home = () => (
     <Mentorship />
     <StoriesSection />
     <PDFBooks />
+    <NotionJournal /> {/* ✅ Halkan ku dar */}
     <Footer />
   </>
 );
