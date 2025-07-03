@@ -1,10 +1,17 @@
-import React from "react";
-import { FaDownload, FaEdit, FaCheckCircle } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaDownload, FaEdit, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const NotionJournal = () => {
+  const [showWarning, setShowWarning] = useState(false);
+
+  const handleBlockedAction = () => {
+    setShowWarning(true);
+    setTimeout(() => setShowWarning(false), 4000);
+  };
+
   return (
-    <section className="py-16 px-6 bg-gradient-to-br from-[#f1f5f9] to-white dark:from-[#0f172a] dark:to-[#1e293b] transition-colors duration-500">
+    <section className="py-16 px-6 bg-gradient-to-br from-[#f1f5f9] to-white dark:from-[#0f172a] dark:to-[#1e293b] transition-colors duration-500 relative">
       <div className="max-w-5xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
@@ -21,32 +28,28 @@ const NotionJournal = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-10"
         >
-          Qorshee ganacsigaaga si nidaamsan adigoo la soconaya entries, profits, mistakes iyo horumarkaaga. Journal-kan wuxuu kaa caawinayaa inaad si maskax leh u noqoto ganacsade xirfad leh.
+          Qaybtan wali shaqo ayaa ka socota. Fadlan dulqaado – lama ogola in la soo dejiyo ama la duplicate-gareeyo waqtigan.
         </motion.p>
 
-        {/* Buttons */}
+        {/* ❌ Disabled Buttons */}
         <motion.div
           className="flex flex-col md:flex-row justify-center items-center gap-4 mb-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <a
-            href="https://cute-marquis-4a9.notion.site/Rejocommunity-Trading-Journal-207aafea943b804c8d81ec2ffcf68a2c?source=copy_link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105 flex items-center gap-2"
+          <button
+            onClick={handleBlockedAction}
+            className="bg-gray-500 text-white px-6 py-3 rounded-full shadow-md cursor-not-allowed flex items-center gap-2 opacity-70"
           >
             <FaDownload /> Download Template
-          </a>
-          <a
-            href="https://cute-marquis-4a9.notion.site/Rejocommunity-Trading-Journal-207aafea943b804c8d81ec2ffcf68a2c?source=copy_link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full shadow-lg transition transform hover:scale-105 flex items-center gap-2"
+          </button>
+          <button
+            onClick={handleBlockedAction}
+            className="bg-gray-500 text-white px-6 py-3 rounded-full shadow-md cursor-not-allowed flex items-center gap-2 opacity-70"
           >
             <FaEdit /> Open in Notion
-          </a>
+          </button>
         </motion.div>
 
         {/* ✅ Guide */}
@@ -60,19 +63,11 @@ const NotionJournal = () => {
           <ul className="space-y-3 text-gray-700 dark:text-gray-300 text-base">
             <li className="flex items-start gap-2">
               <FaCheckCircle className="text-green-500 mt-1" />
-              <span><strong>Step 1:</strong> Guji "Download Template" si aad u duplicate-gareyso journal-kaaga gaarka ah (Notion account lagama maarmaan).</span>
+              <span><strong>Tallaabo 1:</strong> Marka la furo – journal-kan wuxuu noqon doonaa read-only ilaa update-ka dhameystirmo.</span>
             </li>
             <li className="flex items-start gap-2">
               <FaCheckCircle className="text-green-500 mt-1" />
-              <span><strong>Step 2:</strong> Maalin kasta geli ganacsiyadaada: Entry, Direction, TP/SL, sababta aad u gashay iyo natiijada.</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <FaCheckCircle className="text-green-500 mt-1" />
-              <span><strong>Step 3:</strong> Isticmaal column-ka "Mindset Notes" si aad u ogaatid fikirkaaga iyo cabsidaada.</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <FaCheckCircle className="text-green-500 mt-1" />
-              <span><strong>Step 4:</strong> Todobaad walba samee falanqayn: Guulaha, khaladaadka, iyo casharada aad baratay.</span>
+              <span><strong>Tallaabo 2:</strong> Markuu furan yahay – waxaa lagu arkayaa tusaale sida uu u egyahay.</span>
             </li>
           </ul>
         </motion.div>
@@ -95,6 +90,19 @@ const NotionJournal = () => {
           />
         </motion.div>
       </div>
+
+      {/* ❗ Warning Modal */}
+      {showWarning && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center max-w-md animate-bounce">
+            <FaExclamationTriangle className="text-red-500 text-4xl mb-3 mx-auto" />
+            <h4 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Digniin</h4>
+            <p className="text-gray-700 dark:text-gray-300">
+              Waqtigan xaadirka ah lama ogola in la soo dejiyo ama la duplicate-gareeyo journal-kan. Fadlan dulqaado ilaa shaqada laga dhameeyo.
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
