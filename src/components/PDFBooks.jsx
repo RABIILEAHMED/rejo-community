@@ -7,7 +7,7 @@ const englishBooks = [
   { title: '📘 Institutional Order flow', file: '/pdfs/OrderFlow.pdf' },
   { title: '📗 IRL and IRL Range LQ ', file: '/pdfs/IRL and ERL.pdf' },
   { title: '📕 Trading In The Zone_ Mark', file: '/pdfs/Trading int zone.pdf' },
-  // { title: '📒 JavaScript Mastery', file: '/pdfs/js-mastery.pdf' },
+  { title: '📒 Asian Bullet Strategy', file: '/pdfs/Asian Bullet Strategy.pdf' },
   // { title: '📓 Next.js Guide', file: '/pdfs/nextjs-guide.pdf' },
 ];
 
