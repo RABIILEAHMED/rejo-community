@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import profileImage from "../assets/profile.jpg";
-import messageSound from "../assets/message.wav"; // ✅ Codka
+import messageSound from "../assets/message.wav";
 
-const WelcomeModal = () => {
+const WelcomeModal = ({ manualOpen, setManualOpen }) => {
   const [showModal, setShowModal] = useState(false);
-  const [triggered, setTriggered] = useState(false); // ✅ In modal hal mar kaliya furmo session-kaan
+  const [triggered, setTriggered] = useState(false);
 
   useEffect(() => {
+    const hasSeenModal = localStorage.getItem("hasSeenWelcome");
+
     const handleUserAction = () => {
-      if (!triggered) {
+      if (!hasSeenModal && !triggered && !manualOpen) {
         setShowModal(true);
-        playSound(); // ✅ ciyaar codka
-        setTriggered(true); // si aan modal kale uusan u furmin ilaa refresh la sameeyo
+        playSound();
+        setTriggered(true);
+        localStorage.setItem("hasSeenWelcome", "true");
         removeListeners();
       }
     };
@@ -28,19 +31,27 @@ const WelcomeModal = () => {
     };
 
     addListeners();
-
     return () => removeListeners();
-  }, [triggered]);
+  }, [triggered, manualOpen]);
 
-  // ✅ Function codka u ciyaaraya
+  useEffect(() => {
+    if (manualOpen) {
+      setShowModal(true);
+      playSound();
+    }
+  }, [manualOpen]);
+
   const playSound = () => {
     const audio = new Audio(messageSound);
-    audio.play().catch((error) => {
-      console.warn("Codka lama ciyaari karo:", error);
+    audio.play().catch((err) => {
+      console.warn("Codka lama ciyaari karo:", err);
     });
   };
 
-  const closeModal = () => setShowModal(false);
+  const closeModal = () => {
+    setShowModal(false);
+    if (setManualOpen) setManualOpen(false);
+  };
 
   return (
     <AnimatePresence>
@@ -76,8 +87,8 @@ const WelcomeModal = () => {
                 Saaxiib, Soo Dhawoow!
               </h2>
               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                Waxaan ahay <span className="font-medium text-blue-600 dark:text-blue-400">Rabiile Ahmed</span>.  
-                Haddii aad rabto in aynu si gaar ah u saaxiibno, fadlan guji hoos!
+                Waxaan ahay <span className="font-medium text-blue-600 dark:text-blue-400">Eng.Rabiile Ahmed</span>.  
+                Haddii aad rabto in adeeg gaara laguu qabto, fadlan guji hoos!
               </p>
               <a
                 href="https://wa.me/252634734075"

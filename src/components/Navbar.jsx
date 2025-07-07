@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaBell, FaDiscord, FaTelegramPlane, FaYoutube, FaPhoneAlt } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
+import WelcomeModal from './WelcomeModal'; // hubi in path-ku sax yahay
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,7 @@ const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [showCallMe, setShowCallMe] = useState(false);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,7 +28,6 @@ const Navbar = () => {
       const isScrolled = window.scrollY > 50;
       setScrolling(isScrolled);
       if (isScrolled) {
-        // Delay 1s before showing call me button
         timeoutId = setTimeout(() => setShowCallMe(true), 20000);
       } else {
         clearTimeout(timeoutId);
@@ -43,13 +44,11 @@ const Navbar = () => {
   const handleNotificationClick = () => {
     setMessageClicked(true);
     setNewMessage(false);
-    navigate('/');
     setIsOpen(false);
+    setShowWelcomeModal(true);
   };
 
-  const closeToast = () => {
-    setShowToast(false);
-  };
+  const closeToast = () => setShowToast(false);
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -59,6 +58,7 @@ const Navbar = () => {
 
   return (
     <>
+      {/* === NAVBAR === */}
       <nav
         className={`bg-white dark:bg-gray-900 shadow-md px-6 py-4 flex justify-between items-center transition-all duration-300 ${
           scrolling ? 'fixed top-0 left-0 w-full z-50' : 'relative'
@@ -92,17 +92,11 @@ const Navbar = () => {
 
         {/* Right Side */}
         <div className="flex items-center space-x-4">
-          {/* Desktop Icons */}
+          {/* Social Icons */}
           <div className="hidden md:flex space-x-4 text-xl text-gray-700 dark:text-gray-300">
-            <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
-              <FaDiscord />
-            </a>
-            <a href="https://t.me/rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
-              <FaTelegramPlane />
-            </a>
-            <a href="https://www.youtube.com/@rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
-              <FaYoutube />
-            </a>
+            <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500"><FaDiscord /></a>
+            <a href="https://t.me/rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500"><FaTelegramPlane /></a>
+            <a href="https://www.youtube.com/@rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500"><FaYoutube /></a>
           </div>
 
           {/* Dark Mode Toggle */}
@@ -146,58 +140,33 @@ const Navbar = () => {
               ) : (
                 <li><button onClick={() => { navigate('/'); setIsOpen(false); }} className="hover:text-yellow-500">Home</button></li>
               )}
-              <li>
-                <button
-                  onClick={() => {
-                    navigate('/changeyourlife');
-                    setIsOpen(false);
-                  }}
-                  className="hover:text-yellow-500"
-                >
-                  Change Your Life
-                </button>
-              </li>
+              <li><button onClick={() => { navigate('/changeyourlife'); setIsOpen(false); }} className="hover:text-yellow-500">Change Your Life</button></li>
             </ul>
-
-            <div className="flex justify-center mt-4 space-x-6 text-xl text-gray-700 dark:text-gray-300">
-              <a href="https://discord.com/invite/zPNzf7wYC6" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
-                <FaDiscord />
-              </a>
-              <a href="https://t.me/rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
-                <FaTelegramPlane />
-              </a>
-              <a href="https://www.youtube.com/@rejocommunity" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">
-                <FaYoutube />
-              </a>
-            </div>
           </div>
         )}
       </nav>
 
-      {/* Floating WhatsApp Call Me Button with fade effect */}
+      {/* WhatsApp Call Me Button */}
       <a
         href="https://wa.me/252634734075?text=Asc%2C%20waxaan%20rabay%20inan%20la%20soo%20xariiro"
         target="_blank"
         rel="noopener noreferrer"
-        className={`
-          fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 shadow-lg
-          transition-opacity transition-transform duration-500
-          ${showCallMe ? 'opacity-100 scale-90' : 'opacity-0 scale-100 pointer-events-none'}
-        `}
-        title="Call me on WhatsApp"
-        style={{ transitionDelay: showCallMe ? '1000ms' : '0ms' }}
+        className={`fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 shadow-lg transition-opacity transition-transform duration-500 ${showCallMe ? 'opacity-100 scale-90' : 'opacity-0 scale-100 pointer-events-none'}`}
       >
         <FaPhoneAlt className="text-lg md:text-xl" />
         <span className="font-semibold text-sm md:text-base">Call Me</span>
       </a>
 
-      {/* Toast Notification */}
+      {/* Toast */}
       {showToast && (
         <div className="fixed bottom-6 right-6 bg-yellow-500 text-white px-4 py-2 rounded shadow-lg flex items-center space-x-4 z-50">
           <span>Xirfaduhu waa furaha kalsoonidaada nololeed</span>
           <button onClick={closeToast} className="font-bold hover:text-gray-900">X</button>
         </div>
       )}
+
+      {/* Welcome Modal */}
+      <WelcomeModal manualOpen={showWelcomeModal} setManualOpen={setShowWelcomeModal} />
     </>
   );
 };

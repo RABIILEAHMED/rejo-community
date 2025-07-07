@@ -3,16 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaCode, FaPalette, FaMoneyBillWave } from 'react-icons/fa';
 
 const courses = [
-  {
-    title: 'Full Stack Web Development',
-    description: 'Baro HTML, CSS, JavaScript, React & Node.js adigoo af-Soomaali ku baranaya.',
-    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    icon: <FaCode className="text-white text-lg" />,
-    iconBg: 'bg-blue-500',
-    price: '$30',
-    curriculum: [],
-    comingSoon: true
-  },
+ {
+  title: 'Web Development',
+  description: 'Hadii aad leedahay goob ganacsi , wax barasho , ama goob kale waxaanu kaa caawin karnaa madal website ah oo casri ah oo la jaan qaadaysa heerka macaamiishaada.',
+  image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=755&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  icon: <FaCode className="text-white text-lg" />,
+  iconBg: 'bg-blue-500',
+  price: '$',
+curriculum: [
+  '✅ Personal Portfolio – website qofku kusoo bandhigo xirfadiisa ama shaqadiisa',
+  <>
+    ✅ Business Portfolio – <a href="https://constraction-company.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-800">www.constraction.com</a>
+  </>,
+  '✅ E-commerce Platform – Goob online ah oo wax lagu iibiyo/laga iibsado',
+  '✅ Online Educational Platform – Goob waxbarasho online oo koorsooyin lagu baranayo hab online ah '
+],
+  comingSoon: true
+},
+
   {
     title: 'Professional Forex Trading',
     description: 'Barashada suuqa Forex iyo sida loo sameeyo ganacsi guuleed oo waara.',
