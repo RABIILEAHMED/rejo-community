@@ -98,7 +98,7 @@ const ChangeYourLifeNow = () => {
             <span className="text-yellow-600 dark:text-yellow-300">Halkan kaalay saaxiib!</span>
           </p>
           <a
-            href="https://t.me/+x2NZ91lFAjQ2OTJk"
+            href=""
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleCloseNotice}
