@@ -148,7 +148,7 @@ const Navbar = () => {
 
       {/* WhatsApp Call Me Button */}
       <a
-        href="https://wa.me/252634734075?text=Asc%2C%20waxaan%20rabay%20inan%20la%20soo%20xariiro"
+        href="https://wa.me/252636354880?text=Asc%2C%20waxaan%20rabay%20inan%20la%20soo%20xariiro"
         target="_blank"
         rel="noopener noreferrer"
         className={`fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 shadow-lg transition-opacity transition-transform duration-500 ${showCallMe ? 'opacity-100 scale-90' : 'opacity-0 scale-100 pointer-events-none'}`}

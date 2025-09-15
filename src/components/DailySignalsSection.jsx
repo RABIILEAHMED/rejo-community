@@ -1,53 +1,46 @@
 import React, { useMemo, useState } from "react";
-import { CheckCircle, XCircle, Clock, TrendingUp, TrendingDown, Target, BarChart2, CalendarDays, DollarSign, Percent, TimerReset, Filter } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from "recharts";
+import {
+  CheckCircle,
+  XCircle,
+  Clock,
+  TrendingUp,
+  TrendingDown,
+  Target,
+  BarChart2,
+  CalendarDays,
+  DollarSign,
+  Percent,
+  TimerReset,
+  Filter,
+  Wallet,
+} from "lucide-react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts";
 
-/**
- * Full updated component:
- * - Adds filters: Date Range, Session, Asset (Pair)
- * - Adds charts: PnL Over Time (line), Win/Loss by Session (bar)
- * - Keeps your modern stats cards + signals grid + modal
- */
-
+// ======= Signals Data =======
 const signals = [
   {
     id: 1,
-    pair: "EUR/USD",
+    pair: "XAU/USD",
     type: "Sell",
-    entry: "1.11996",
-    sl: "1.12069",
-    tp: "1.11526",
-    time: "16-May-2025 02:30 PM",
+    entry: "3376.91",
+    sl: "3380.49",
+    tp: "	3376.46",
+    time: "26-Aug-2025 12:00 PM",
     result: "tp",
     tvLink: "https://www.tradingview.com/x/KkDg8uuf/",
     riskUSD: 100,
-    lotSize: 0.5,
-  },
-  {
-    id: 2,
-    pair: "GBP/USD",
-    type: "Buy",
-    entry: "1.32006",
-    sl: "1.31894",
-    tp: "1.32578",
-    time: "12-May-2025 05:15 PM",
-    result: "sl",
-    tvLink: "https://www.tradingview.com/x/usTVll7w/",
-    riskUSD: 100,
-    lotSize: 0.5,
-  },
-  {
-    id: 3,
-    pair: "XAU/USD",
-    type: "Buy",
-    entry: "3215.91",
-    sl: "3210.22",
-    tp: "3233.39",
-    time: "15-Apr-2025 10:54 AM",
-    result: "tp",
-    tvLink: "https://www.tradingview.com/x/gk3nq3zY/",
-    riskUSD: 150,
-    lotSize: 0.2,
+    lotSize: 0.28,
   },
   {
     id: 4,
@@ -64,6 +57,7 @@ const signals = [
   },
 ];
 
+// ===== Helpers =====
 const monthMap = {
   Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
   Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11,
@@ -75,18 +69,14 @@ function parseSignalTime(str) {
     const [d, mon, y] = datePart.split("-");
     let [hh, mm] = timePart.split(":").map(Number);
     let hour = hh % 12 + (ampm?.toUpperCase() === "PM" ? 12 : 0);
-    const dt = new Date(Number(y), monthMap[mon], Number(d), hour, Number(mm), 0);
-    return dt;
-  } catch (e) {
+    return new Date(Number(y), monthMap[mon], Number(d), hour, Number(mm), 0);
+  } catch {
     return new Date(str);
   }
 }
 
 function formatDateKey(dt) {
-  const y = dt.getFullYear();
-  const m = String(dt.getMonth() + 1).padStart(2, "0");
-  const d = String(dt.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
+  return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
 }
 
 function isToday(date) {
@@ -107,7 +97,6 @@ function isThisWeek(date) {
 }
 
 function assignSession(dt) {
-  // Rough ranges (local time): Asia 0-8, London 8-16, New York 13-21
   const h = dt.getHours();
   if (h >= 0 && h < 8) return "Asia";
   if (h >= 8 && h < 13) return "London";
@@ -132,11 +121,11 @@ function calcTradeMetrics(sig) {
 const resultIcon = (result) => {
   switch (result) {
     case "tp":
-      return <CheckCircle className="text-green-400 w-5 h-5 inline-block mr-1" title="Hit TP" />;
+      return <CheckCircle className="text-green-400 w-5 h-5 inline-block mr-1" />;
     case "sl":
-      return <XCircle className="text-red-400 w-5 h-5 inline-block mr-1" title="Hit SL" />;
+      return <XCircle className="text-red-400 w-5 h-5 inline-block mr-1" />;
     default:
-      return <Clock className="text-yellow-300 w-5 h-5 inline-block mr-1" title="Still Active" />;
+      return <Clock className="text-yellow-300 w-5 h-5 inline-block mr-1" />;
   }
 };
 
@@ -160,15 +149,17 @@ function formatUSD(n) {
   return (v < 0 ? "-" : "") + "$" + Math.abs(v).toFixed(2);
 }
 
+// ===== Main Component =====
 export default function DailySignalsWithStatsAndFilters() {
   const [selectedSignal, setSelectedSignal] = useState(null);
   const [showResults, setShowResults] = useState(true);
 
-  // Filters
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [session, setSession] = useState("All");
   const [asset, setAsset] = useState("All");
+
+  const initialBalance = 9745.71;
 
   // Decorate signals
   const decorated = useMemo(() => {
@@ -179,7 +170,7 @@ export default function DailySignalsWithStatsAndFilters() {
         const sess = assignSession(t);
         return { ...s, _date: t, _dateKey: formatDateKey(t), session: sess, ...m };
       })
-      .sort((a, b) => b._date - a._date);
+      .sort((a, b) => a._date - b._date);
   }, []);
 
   // Dropdown options
@@ -202,7 +193,7 @@ export default function DailySignalsWithStatsAndFilters() {
     });
   }, [decorated, startDate, endDate, session, asset]);
 
-  // Core aggregates (based on filtered)
+  // Core aggregates
   const today = filtered.filter((s) => isToday(s._date));
   const thisWeek = filtered.filter((s) => isThisWeek(s._date));
   const closed = filtered.filter((s) => s.result === "tp" || s.result === "sl");
@@ -211,29 +202,25 @@ export default function DailySignalsWithStatsAndFilters() {
 
   const totalPnL = closed.reduce((a, c) => a + c.pnl, 0);
   const totalRisk = filtered.reduce((a, c) => a + Number(c.riskUSD || 0), 0);
-  const avgR = wins.length + losses.length > 0 ? wins.reduce((a, c) => a + c.R, 0) / (wins.length || 1) : 0;
   const winRate = closed.length ? (wins.length / closed.length) * 100 : 0;
 
-  const best = closed.length ? closed.reduce((a, c) => (c.pnl > a.pnl ? c : a), closed[0]) : null;
-  const worst = closed.length ? closed.reduce((a, c) => (c.pnl < a.pnl ? c : a), closed[0]) : null;
-
-  const todayPnL = today.reduce((a, c) => a + (c.pnl || 0), 0);
-  const weekPnL = thisWeek.reduce((a, c) => a + (c.pnl || 0), 0);
-
-  // Chart data
-  const pnlByDate = useMemo(() => {
-    const map = new Map();
-    filtered.forEach((d) => {
-      if (!map.has(d._dateKey)) map.set(d._dateKey, 0);
+  // Account balance over time
+  const balanceTimeline = useMemo(() => {
+    let balance = initialBalance;
+    const arr = [];
+    decorated.forEach((d) => {
       if (d.result === "tp" || d.result === "sl") {
-        map.set(d._dateKey, map.get(d._dateKey) + d.pnl);
+        balance += d.pnl;
+        arr.push({ date: d._dateKey, balance });
       }
     });
-    return Array.from(map.entries())
-      .sort((a, b) => (a[0] < b[0] ? -1 : 1))
-      .map(([date, pnl]) => ({ date, pnl }));
-  }, [filtered]);
+    return arr;
+  }, [decorated]);
 
+  const currentBalance =
+    balanceTimeline.length > 0 ? balanceTimeline[balanceTimeline.length - 1].balance : initialBalance;
+
+  // Session WL
   const sessionWL = useMemo(() => {
     const buckets = { Asia: { session: "Asia", wins: 0, losses: 0 }, London: { session: "London", wins: 0, losses: 0 }, "New York": { session: "New York", wins: 0, losses: 0 }, "After-hours": { session: "After-hours", wins: 0, losses: 0 } };
     filtered.forEach((d) => {
@@ -258,145 +245,28 @@ export default function DailySignalsWithStatsAndFilters() {
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <Filter className="w-4 h-4 text-yellow-400" />
-          <h4 className="text-lg font-semibold">Filters</h4>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-          <div>
-            <label className="text-xs text-gray-400">Start Date</label>
-            <input type="date" className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-          </div>
-          <div>
-            <label className="text-xs text-gray-400">End Date</label>
-            <input type="date" className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-          </div>
-          <div>
-            <label className="text-xs text-gray-400">Session</label>
-            <select className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2" value={session} onChange={(e) => setSession(e.target.value)}>
-              {sessions.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="text-xs text-gray-400">Asset (Pair)</label>
-            <select className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2" value={asset} onChange={(e) => setAsset(e.target.value)}>
-              {assets.map((a) => (
-                <option key={a} value={a}>{a}</option>
-              ))}
-            </select>
-          </div>
-          <div className="flex items-end">
-            <button onClick={() => { setStartDate(""); setEndDate(""); setSession("All"); setAsset("All"); }} className="w-full bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md font-semibold text-sm">Reset</button>
-          </div>
-        </div>
-      </div>
-
       {/* KPI Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard title="Trades Today" value={today.length} sub={formatUSD(todayPnL) + " PnL"} icon={<CalendarDays className="w-5 h-5" />} />
-        <StatCard title="Trades This Week" value={thisWeek.length} sub={formatUSD(weekPnL) + " PnL"} icon={<BarChart2 className="w-5 h-5" />} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+        <StatCard title="Trades Today" value={today.length} sub={`PnL ${formatUSD(today.reduce((a,c)=>a+(c.pnl||0),0))}`} icon={<CalendarDays className="w-5 h-5" />} />
+        <StatCard title="Trades This Week" value={thisWeek.length} sub={`PnL ${formatUSD(thisWeek.reduce((a,c)=>a+(c.pnl||0),0))}`} icon={<BarChart2 className="w-5 h-5" />} />
         <StatCard title="Win Rate" value={`${winRate.toFixed(0)}%`} sub={`${wins.length}W / ${losses.length}L`} icon={<Percent className="w-5 h-5" />} />
-        <StatCard title="Net PnL" value={formatUSD(totalPnL)} sub={`Total Risked ${formatUSD(totalRisk)}`} icon={totalPnL >= 0 ? <TrendingUp className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />} />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-        {/* Best / Worst */}
-        <div className="bg-gray-900 rounded-2xl p-5 border border-gray-800">
-          <div className="flex items-center gap-2 mb-4">
-            <Target className="w-5 h-5 text-yellow-400" />
-            <h4 className="text-lg font-semibold">Performance Highlights</h4>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-gray-800 rounded-xl p-4">
-              <div className="text-sm text-gray-400 mb-1">Best Trade</div>
-              {best ? (
-                <div>
-                  <div className="text-white font-medium">{best.pair} · {best.type}</div>
-                  <div className="text-green-400 text-xl font-semibold">{formatUSD(best.pnl)}</div>
-                  <div className="text-xs text-gray-400 mt-1">R: {best.R.toFixed(2)} · Points: {best.tpDist.toFixed(5)}</div>
-                </div>
-              ) : <div className="text-gray-400">No closed trades yet.</div>}
-            </div>
-            <div className="bg-gray-800 rounded-xl p-4">
-              <div className="text-sm text-gray-400 mb-1">Worst Trade</div>
-              {worst ? (
-                <div>
-                  <div className="text-white font-medium">{worst.pair} · {worst.type}</div>
-                  <div className="text-red-400 text-xl font-semibold">{formatUSD(worst.pnl)}</div>
-                  <div className="text-xs text-gray-400 mt-1">R: {worst.R.toFixed(2)} · Points: {worst.slDist.toFixed(5)}</div>
-                </div>
-              ) : <div className="text-gray-400">No closed trades yet.</div>}
-            </div>
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-4">
-            <div className="bg-gray-800 rounded-xl p-4">
-              <div className="text-sm text-gray-400">Average R</div>
-              <div className="text-white text-xl font-semibold">{avgR.toFixed(2)}</div>
-            </div>
-            <div className="bg-gray-800 rounded-xl p-4">
-              <div className="text-sm text-gray-400">Average PnL (Closed)</div>
-              <div className="text-white text-xl font-semibold">{formatUSD(closed.length ? totalPnL / closed.length : 0)}</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Money Summary */}
-        <div className="bg-gray-900 rounded-2xl p-5 border border-gray-800">
-          <div className="flex items-center gap-2 mb-4">
-            <DollarSign className="w-5 h-5 text-yellow-400" />
-            <h4 className="text-lg font-semibold">Lacagta & Xisaabinta</h4>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gray-800 rounded-xl p-4">
-              <div className="text-sm text-gray-400">Total Risked</div>
-              <div className="text-white text-xl font-semibold">{formatUSD(totalRisk)}</div>
-            </div>
-            <div className="bg-gray-800 rounded-xl p-4">
-              <div className="text-sm text-gray-400">PnL (TP Only)</div>
-              <div className="text-white text-xl font-semibold">{formatUSD(wins.reduce((a,c)=>a+c.pnl,0))}</div>
-            </div>
-            <div className="bg-gray-800 rounded-xl p-4">
-              <div className="text-sm text-gray-400">Losses (SL Only)</div>
-              <div className="text-white text-xl font-semibold">{formatUSD(losses.reduce((a,c)=>a+c.pnl,0))}</div>
-            </div>
-            <div className="bg-gray-800 rounded-xl p-4">
-              <div className="text-sm text-gray-400">Active Trades</div>
-              <div className="text-white text-xl font-semibold">{filtered.filter(s=>s.result==="active").length}</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Notes / Policy */}
-        <div className="bg-gray-900 rounded-2xl p-5 border border-gray-800">
-          <div className="flex items-center gap-2 mb-2">
-            <TimerReset className="w-5 h-5 text-yellow-400" />
-            <h4 className="text-lg font-semibold">Xog & Qaanuun</h4>
-          </div>
-          <ul className="text-sm text-gray-300 space-y-2 list-disc pl-5">
-            <li>Active trades ma saameeyaan win rate ilaa ay xirmaan.</li>
-            <li>"Points" = farqiga qiimaha (pip-size symbols way kala duwanaan karaan).</li>
-            <li>Haddii <span className="text-yellow-300">riskUSD</span> aan la bixin, PnL waxaa loo qaadanayaa 0.</li>
-          </ul>
-        </div>
+        <StatCard title="Net PnL" value={formatUSD(totalPnL)} sub={`Risked ${formatUSD(totalRisk)}`} icon={totalPnL >= 0 ? <TrendingUp className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />} />
+        <StatCard title="Account Balance" value={formatUSD(currentBalance)} sub={`Start ${formatUSD(initialBalance)}`} icon={<Wallet className="w-5 h-5" />} />
       </div>
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
         <div className="bg-gray-900 rounded-2xl p-5 border border-gray-800">
-          <h4 className="text-lg font-semibold mb-3">📈 PnL Over Time</h4>
+          <h4 className="text-lg font-semibold mb-3">📈 Balance Over Time</h4>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={pnlByDate} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+              <LineChart data={balanceTimeline}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="pnl" stroke="#22c55e" strokeWidth={2} dot={{ r: 3 }} />
+                <Line type="monotone" dataKey="balance" stroke="#facc15" strokeWidth={2} dot={{ r: 3 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -406,7 +276,7 @@ export default function DailySignalsWithStatsAndFilters() {
           <h4 className="text-lg font-semibold mb-3">⚔️ Win/Loss by Session</h4>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={sessionWL} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+              <BarChart data={sessionWL}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="session" />
                 <YAxis />
@@ -456,7 +326,6 @@ export default function DailySignalsWithStatsAndFilters() {
             <button
               onClick={() => setSelectedSignal(null)}
               className="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 rounded-full w-8 h-8 text-sm"
-              aria-label="Close modal"
             >
               ✕
             </button>
@@ -469,19 +338,8 @@ export default function DailySignalsWithStatsAndFilters() {
               <p><strong>Stop Loss:</strong> {selectedSignal.sl}</p>
               <p><strong>Take Profit:</strong> {selectedSignal.tp}</p>
               <p><strong>Risk:</strong> {formatUSD(selectedSignal.riskUSD || 0)}</p>
-              <p><strong>R Multiple:</strong> {selectedSignal.R.toFixed(2)}</p>
               <p><strong>Status:</strong> {selectedSignal.result.toUpperCase()}</p>
             </div>
-
-            <div className="mt-4 flex justify-center">
-              <a href={selectedSignal.tvLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-blue-400 hover:underline text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 3h7v7m0 0L10 21l-7-7L21 3z" />
-                </svg>
-                View on TradingView
-              </a>
-            </div>
-
             {showResults && (
               <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="bg-gray-800 rounded-xl p-3 text-center">
